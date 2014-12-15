@@ -1,6 +1,11 @@
 import java.io.PrintStream;
 import java.util.Scanner;
-
+/**
+ * Project 14 The Zorkening!
+ * Main Class
+ * @author Alex Mikhalev & Tavi Kohn
+ * @version 1.0
+ */
 public class Main {
     private static Main instance;
     private int score;

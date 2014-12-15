@@ -1,7 +1,7 @@
 /**
  * Project 14 The Zorkening!
  * Armor Class
- * @author Tavi Kohn
+ * @author Alex Mikhalev & Tavi Kohn
  * @version 1.0
  */
 public class Armor extends Equippable{
@@ -10,11 +10,11 @@ public class Armor extends Equippable{
         super(name, description);
         this.defense = defense;
     }
-    
+
     public String getDescription(){
         return description;
     }
-    
+
     public int getDefense(){
         return defense;
     }

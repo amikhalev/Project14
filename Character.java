@@ -1,4 +1,10 @@
 import java.util.Vector;
+/**
+ * Project 14 The Zorkening!
+ * Weapon Class
+ * @author Alex Mikhalev & Tavi Kohn
+ * @version 1.0
+ */
 public class Character{
     protected String name;
     protected String description;
@@ -14,7 +20,7 @@ public class Character{
         this.defense = defense;
         this.hostile = hostile;
     }
-    
+
     public Character(String name, Vector<Item> inventory){
         this.name = name;
         this.inventory = inventory;

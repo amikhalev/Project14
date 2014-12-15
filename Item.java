@@ -1,7 +1,7 @@
 /**
  * Project 14 The Zorkening!
  * Item Class
- * @author Tavi Kohn
+ * @author Alex Mikhalev & Tavi Kohn
  * @version 1.0
  */
 public class Item{
@@ -11,11 +11,11 @@ public class Item{
         this.name = name;
         this.description = description;
     }
-    
+
     public String getName(){
         return name;
     }
-    
+
     public String getDescription(){
         return description;
     }

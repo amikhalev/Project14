@@ -2,7 +2,7 @@ import java.util.Vector;
 /**
  * Project 14 The Zorkening!
  * Player Class
- * @author Tavi Kohn
+ * @author Alex Mikhalev & Tavi Kohn
  * @version 1.0
  */
 public class Player extends Character{

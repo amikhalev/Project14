@@ -1,7 +1,7 @@
 /**
  * Project 14 The Zorkening!
  * Weapon Class
- * @author Tavi Kohn
+ * @author Alex Mikhalev & Tavi Kohn
  * @version 1.0
  */
 public class Weapon extends Equippable{

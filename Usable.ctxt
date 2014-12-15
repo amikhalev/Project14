@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.params=name\ description
+comment0.target=Usable(java.lang.String,\ java.lang.String)
+comment1.params=
+comment1.target=java.lang.String\ getDescription()
+comment2.params=
+comment2.target=java.lang.String\ getName()
+comment3.params=
+comment3.target=void\ use()
+comment4.params=target
+comment4.target=void\ use(Character)
+numComments=5

@@ -55,8 +55,8 @@ public class Main {
     }
 
     public void start() {
-        out.println("Project 14");
-        out.println("Made by Alex Mikhalev and Tavi Kohn");
+        System.out.println("Project 14");
+        System.out.println("Made by Alex Mikhalev and Tavi Kohn");
         running = true;
         while (running) {
             prompt();
@@ -64,7 +64,7 @@ public class Main {
     }
 
     public void prompt() {
-        out.print(" > ");
+        System.out.print(" > ");
         String line = scanner.nextLine();
         line = line.toLowerCase().trim();
         process(line);
@@ -73,18 +73,49 @@ public class Main {
     public void process(String command) {
         String[] parts = command.split(" ");
         if (parts.length < 1) {
-            out.println("What did you say?");
+            System.out.println("What did you say?");
             return;
         }
         switch (parts[0]) {
             case "quit":
             case "exit":
-                out.println("Bye!");
-                running = false;
-                break;
+            System.out.println("Bye!");
+            running = false;
+            break;
+            case "say":
+            if(parts[1].equals("herr") && parts[2].equals("schreiber") && parts[3].equals("demands") && parts[4].equals("a") && parts[5].equals("map!")){
+                printMap();
+            }else{
+                System.out.println("I don't understand that");
+            }
+            break;
             default:
-                out.printf("You said %s!\n", command);
-                break;
+            System.out.printf("You said %s!\n", command);
+            break;
         }
+    }
+
+    public void printMap(){
+        System.out.println("╔══════════╗  ╔══════════╗  ╔══════════╗  ╔══════════╗  ╔══════════╗  ╔══════════╗");
+        System.out.println("║ Wizard's ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
+        System.out.println("║ Wardrobe ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
+        System.out.println("║          ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
+        System.out.println("║ Robes,   ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
+        System.out.println("║ Hat      ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
+        System.out.println("╚══════════╝  ╚══════════╝  ╚══════════╝  ╚══════════╝  ╚══════════╝  ╚══════════╝");
+        System.out.println("╔══════════╗  ╔══════════╗  ╔══════════╗  ╔══════════╗  ╔══════════╗  ╔══════════╗");
+        System.out.println("║          ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
+        System.out.println("║          ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
+        System.out.println("║          ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
+        System.out.println("║          ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
+        System.out.println("║          ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
+        System.out.println("╚══════════╝  ╚══════════╝  ╚══════════╝  ╚══════════╝  ╚══════════╝  ╚══════════╝");
+        System.out.println("╔══════════╗  ╔══════════╗  ╔══════════╗  ╔══════════╗  ╔══════════╗  ╔══════════╗");
+        System.out.println("║          ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
+        System.out.println("║          ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
+        System.out.println("║          ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
+        System.out.println("║          ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
+        System.out.println("║          ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
+        System.out.println("╚══════════╝  ╚══════════╝  ╚══════════╝  ╚══════════╝  ╚══════════╝  ╚══════════╝");
     }
 }

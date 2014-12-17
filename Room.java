@@ -5,7 +5,7 @@ import java.util.Vector;
  * @author Alex Mikhalev & Tavi Kohn
  * @version 1.0
  */
-public class Room{
+public class Room {
     protected Vector<Item> items;
     protected Vector<Character> characters;
     protected Room north;
@@ -15,31 +15,31 @@ public class Room{
     protected Room up;
     protected Room down;
 
-    public Room(Vector<Item> items, Vector<Character> characters){
+    public Room(Vector<Item> items, Vector<Character> characters) {
 
     }
 
-    public Room goNorth(){
+    public Room goNorth() {
         return north;
     }
 
-    public Room goSouth(){
+    public Room goSouth() {
         return south;
     }
 
-    public Room goEast(){
+    public Room goEast() {
         return east;
     }
 
-    public Room goWest(){
+    public Room goWest() {
         return west;
     }
 
-    public Room goUp(){
+    public Room goUp() {
         return up;
     }
 
-    public Room goDown(){
+    public Room goDown() {
         return down;
     }
 }

@@ -1,6 +1,7 @@
 /.idea
 /out
+/package.bluej
 *.iml
 *.class
-*.ctx
-*.package
+*.ctxt
+.~*

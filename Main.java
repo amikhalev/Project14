@@ -77,25 +77,25 @@ public class Main {
             return;
         }
         switch (parts[0]) {
-            case "quit":
-            case "exit":
+        case "quit":
+        case "exit":
             System.out.println("Bye!");
             running = false;
             break;
-            case "say":
-            if(parts[1].equals("herr") && parts[2].equals("schreiber") && parts[3].equals("demands") && parts[4].equals("a") && parts[5].equals("map!")){
+        case "say":
+            if(parts[1].equals("herr") && parts[2].equals("schreiber") && parts[3].equals("demands") && parts[4].equals("a") && parts[5].equals("map!")) {
                 printMap();
-            }else{
+            } else {
                 System.out.println("I don't understand that");
             }
             break;
-            default:
+        default:
             System.out.printf("You said %s!\n", command);
             break;
         }
     }
 
-    public void printMap(){
+    public void printMap() {
         System.out.println("╔══════════╗  ╔══════════╗  ╔══════════╗  ╔══════════╗  ╔══════════╗  ╔══════════╗");
         System.out.println("║ Wizard's ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");
         System.out.println("║ Wardrobe ║  ║          ║  ║          ║  ║          ║  ║          ║  ║          ║");

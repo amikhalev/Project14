@@ -5,13 +5,13 @@ import java.util.Vector;
  * @author Alex Mikhalev & Tavi Kohn
  * @version 1.0
  */
-public class Character{
+public class Character {
     protected String name;
     protected String description;
     protected Vector<Item> inventory;
     protected int health, attack, defense;
     protected boolean hostile;
-    public Character(String name, String description, Vector<Item> inventory, int health, int attack, int defense, boolean hostile){
+    public Character(String name, String description, Vector<Item> inventory, int health, int attack, int defense, boolean hostile) {
         this.name = name;
         this.description = description;
         this.inventory = inventory;
@@ -21,16 +21,16 @@ public class Character{
         this.hostile = hostile;
     }
 
-    public Character(String name, Vector<Item> inventory){
+    public Character(String name, Vector<Item> inventory) {
         this.name = name;
         this.inventory = inventory;
     }
 
-    public int getAttack(){
+    public int getAttack() {
         return attack;
     }
 
-    public int getDefense(){
+    public int getDefense() {
         return defense;
     }
 }

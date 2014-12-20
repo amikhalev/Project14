@@ -1,7 +1,7 @@
 # Project 14
 
-This is a repo to hold the code for the final project for Herr Schreiber's AP Comp
-Sci class. This is a text based adventure game.
+This is a repo to hold the code for the final project for Schreiber's AP Comp
+Sci class. This is a text based adventure game (kinda stupid, but cool)
 
 ## Compiling
 

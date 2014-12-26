@@ -12,15 +12,6 @@ public class Weapon extends Equippable {
         super(name, description);
         this.attack = attack;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
     public int getAttack() {
         return attack;
     }

@@ -8,16 +8,11 @@ public class Usable extends Item {
     protected int healthChange;
     protected int attackChange;
     protected int defenseChange;
-    public Usable(String name, String description) {
+    public Usable(String name, String description, int healthChange, int attackChange, int defenseChange) {
         super(name, description);
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getName() {
-        return name;
+        this.healthChange = healthChange;
+        this.attackChange = attackChange;
+        this.defenseChange = defenseChange;
     }
 
     public void use() {

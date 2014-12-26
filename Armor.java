@@ -10,11 +10,6 @@ public class Armor extends Equippable {
         super(name, description);
         this.defense = defense;
     }
-
-    public String getDescription() {
-        return description;
-    }
-
     public int getDefense() {
         return defense;
     }

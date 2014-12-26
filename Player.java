@@ -1,4 +1,4 @@
-import java.util.Vector;
+import java.util.List;
 /**
  * Project 14 The Zorkening!
  * Player Class
@@ -6,16 +6,12 @@ import java.util.Vector;
  * @version 1.0
  */
 public class Player extends Character {
-    protected String description;
-    protected Vector<Equippable> equipped;
-    protected Vector<Item> inventory;
-    protected int money, health, baseAttack, baseDefense;
-    public Player(String name, Vector<Item> inventory) {
-        super(name, inventory);
-    }
+    protected Equippable[] equipped;
+    protected List<Item> inventory;
+    protected int money, baseAttack, baseDefense;
 
-    public Player(String name, String description, Vector<Item> inventory, int health, int attack, int defense, boolean hostile) {
-        super(name, description, inventory, health, attack, defense, hostile);
+    public Player(String name, String description, Item[] inventory, int health, int attack, int defense) {
+        super(name, description, inventory, health, attack, defense);
     }
 
     public int getBaseAttack() {
@@ -34,7 +30,7 @@ public class Player extends Character {
         return description;
     }
 
-    public void Equip(Item item) {
+    public void equip(Item item) {
         inventory.add(item);
     }
 }

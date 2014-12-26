@@ -8,12 +8,4 @@ public class Equippable extends Item {
     public Equippable(String name, String description) {
         super(name, description);
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
 }

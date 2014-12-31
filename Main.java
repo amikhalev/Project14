@@ -14,12 +14,12 @@ public class Main {
     private Scanner scanner;
     private PrintStream out;
     private boolean running;
-    private Room[][][] floors;
-    private int currentFloor;
+    private Player player;
+    private Room currentRoom;
 
     public Main() {
         scanner = new Scanner(System.in);
-        out = out.
+        out = System.out;
         reset();
     }
 
@@ -41,60 +41,19 @@ public class Main {
         getInstance().start();
     }
 
-    private void generateRooms() {
-        Random random = new Random();
-        floors = new Room[5][5][5];
-        for (int i = 0; i < floors.length; ++i) {
-            Room[][] floor = floors[i];
-            for (int j = 0; j < floor.length; ++j) {
-                for (int k = 0; k < floor.length; ++k) {
-                    double num = random.nextDouble();
-                    if (num <= .40) {
-                        floor[j][k] = makeHallway();
-                    } else if (num <= .70) {
-                        floor[j][k] = makeEasyMonster();
-                    } else if (num <= .90) {
-                        floor[j][k] = makeHardMonster();
-                    } else {
-                        floor[j][k] = makeTreasure();
-                    }
-                }
-            }
-            int bossX = (int) Math.floor(random.nextDouble() * 5);
-            int bossY = (int) Math.floor(random.nextDouble() * 5);
-            floor[bossX][bossY] = makeBoss();
-        }
-    }
-
-    private Room makeHallway() {
-        // TODO: make hallway
-        return new Room(new Item[0], new Character[0], "Hallway", "");
-    }
-
-    private Room makeEasyMonster() {
-        // TODO: make EasyMonster
-        return new Room(new Item[0], new Character[0], "EasyMonster", "");
-    }
-
-    private Room makeHardMonster() {
-        // TODO: make HardMonster
-        return new Room(new Item[0], new Character[0], "HardMonster", "");
-    }
-
-    private Room makeTreasure() {
-        // TODO: make Treasure
-        return new Room(new Item[0], new Character[0], "Treasure", "");
-    }
-
-    private Room makeBoss() {
-        // TODO: make Boss
-        return new Room(new Item[0], new Character[0], "Boss", "");
+    private void makeRooms() {
+        Room wizardsWardrobe = new Room(new Item[0], new Character[0], "Wizard's Wardrobe", "The wardrobe of the Wizard!");
+        Room wizardsGrotto = new Room(new Item[0], new Character[0], "Wizard's Grotto", "The grotto of the Wizard!");
+        Room grateRoom = new Room(new Item[0], new Character[0], "Grate Room", "A room with a grate!");
+        Room vault = new Room(new Item[0], new Character[0], "Vault", "A room with a vault!");
+        Room storeroom = new Room(new Item[0], new Character[0], "Storeroom", "A room with stores!");
+        Room risingRoom = new Room(new Item[0], new Character[0], "Rising Room", "The room in which you rise!");
     }
 
     public void reset() {
         score = 0;
         running = false;
-        generateRooms();
+        makeRooms();
     }
 
     public int getScore() {
@@ -154,48 +113,33 @@ public class Main {
     }
 
     private void printMap() {
-        // out.println("                                            WORLD MAP");
-        // out.println("                  Subsurface                                              The Beneath");
-        // out.println("╭─────────────────────┴┴───────────────────────╮╭──────────────────────────────┴┴──────────────────────────────╮");
-        // out.println("│╔════════════╗  ╔════════════╗                ││                                                              │");
-        // out.println("│║  Wizard's  ║  ║  Wizard's  ║                ││                                                              │");
-        // out.println("│║  Wardrobe  ║  ║   Grotto   ║                ││                                                              │");
-        // out.println("│║            ╚══╝            ║                ││                                                              │");
-        // out.println("│║            ╔══╗            ║                ││                                                              │");
-        // out.println("│║   Robes,   ║  ║ Old Staff, ║                ││                                                              │");
-        // out.println("│║    Hat     ║  ║ Spellbook  ║                ││                                                              │");
-        // out.println("│╚════════════╝  ╚════╗  ╔════╝                ││                                                              │");
-        // out.println("│                ╔════╝  ╚════╗  ╔════════════╗││╔════════════╗                                                │");
-        // out.println("│                ║ Grate Room ║  ║   Vault    ║││║Rising Room ║                                                │");
-        // out.println("│                ║  (Start)   ║  ║            ║││║            ║                                                │");
-        // out.println("│                ║    ╔══╗    ╚══╝            ║││║    ╔══╗    ║                                                │");
-        // out.println("│                ║    ║\\/║    ╔══╗            ║││║    ║/\\║    ║                                                │");
-        // out.println("│                ║    ╚══╝    ║  ║  Warp Ring ║││║    ╚══╝    ║                                                │");
-        // out.println("│                ║            ║  ║            ║││║            ║                                                │");
-        // out.println("│                ╚════╗  ╔════╝  ╚════════════╝││╚════╗  ╔════╝                                                │");
-        // out.println("│                ╔════╝  ╚════╗                ││╔════╝  ╚════╗  ╔════════════╗  ╔════════════╗  ╔════════════╗│");
-        // out.println("│                ║ Storeroom  ║                ││║   Winding  ║  ║  Crystal   ║  ║  Crystal   ║  ║Throne Room ║│");
-        // out.println("│                ║            ║                ││║   Tunnel   ║  ║  Cavern    ║  ║    Hall    ║  ║            ║│");
-        // out.println("│                ║            ║                ││║            ╚══╝            ╚══╝            ╚══╝            ║│");
-        // out.println("│                ║    Coal,   ║                ││║            ╔══╗   Flint,   ╔══╗            ╔══╗            ║│");
-        // out.println("│                ║ Glow Moss, ║                ││║            ║  ║  Crystal,  ║  ║            ║  ║  Pickaxe   ║│");
-        // out.println("│                ║  Backpack  ║                ││║            ║  ║  Lantern   ║  ║            ║  ║ War Hammer ║│");
-        // out.println("│                ╚════════════╝                ││╚════════════╝  ╚════════════╝  ╚════════════╝  ╚════════════╝│");
-        // out.println("╰──────────────────────────────────────────────╯╰──────────────────────────────────────────────────────────────╯");
-        String[] map = new String[8 * 5];
-        for (int i = 0; i < map.length; ++i)
-            map[i] = "";
-        Room[][] rooms = floors[currentFloor];
-        for (int i = 0; i < rooms.length; ++i) {
-            for (int j = 0; j < rooms[i].length; ++j) {
-                Room room = rooms[i][j];
-                int k = i * 8;
-                map[k] += "╔══════════════╗";
-                map[k + 7] += "╚══════════════╝";
-                map[k + 1] += String.format("║ %-12s ║", room.getName());
-            }
-            out.println();
-        }
-        out.println(String.join("\n", map));
+        out.println("                                            WORLD MAP");
+        out.println("                  Subsurface                                              The Beneath");
+        out.println("╭─────────────────────┴┴───────────────────────╮╭──────────────────────────────┴┴──────────────────────────────╮");
+        out.println("│╔════════════╗  ╔════════════╗                ││                                                              │");
+        out.println("│║  Wizard's  ║  ║  Wizard's  ║                ││                                                              │");
+        out.println("│║  Wardrobe  ║  ║   Grotto   ║                ││                                                              │");
+        out.println("│║            ╚══╝            ║                ││                                                              │");
+        out.println("│║            ╔══╗            ║                ││                                                              │");
+        out.println("│║   Robes,   ║  ║ Old Staff, ║                ││                                                              │");
+        out.println("│║    Hat     ║  ║ Spellbook  ║                ││                                                              │");
+        out.println("│╚════════════╝  ╚════╗  ╔════╝                ││                                                              │");
+        out.println("│                ╔════╝  ╚════╗  ╔════════════╗││╔════════════╗                                                │");
+        out.println("│                ║ Grate Room ║  ║   Vault    ║││║Rising Room ║                                                │");
+        out.println("│                ║  (Start)   ║  ║            ║││║            ║                                                │");
+        out.println("│                ║    ╔══╗    ╚══╝            ║││║    ╔══╗    ║                                                │");
+        out.println("│                ║    ║\\/║    ╔══╗            ║││║    ║/\\║    ║                                                │");
+        out.println("│                ║    ╚══╝    ║  ║  Warp Ring ║││║    ╚══╝    ║                                                │");
+        out.println("│                ║            ║  ║            ║││║            ║                                                │");
+        out.println("│                ╚════╗  ╔════╝  ╚════════════╝││╚════╗  ╔════╝                                                │");
+        out.println("│                ╔════╝  ╚════╗                ││╔════╝  ╚════╗  ╔════════════╗  ╔════════════╗  ╔════════════╗│");
+        out.println("│                ║ Storeroom  ║                ││║   Winding  ║  ║  Crystal   ║  ║  Crystal   ║  ║Throne Room ║│");
+        out.println("│                ║            ║                ││║   Tunnel   ║  ║  Cavern    ║  ║    Hall    ║  ║            ║│");
+        out.println("│                ║            ║                ││║            ╚══╝            ╚══╝            ╚══╝            ║│");
+        out.println("│                ║    Coal,   ║                ││║            ╔══╗   Flint,   ╔══╗            ╔══╗            ║│");
+        out.println("│                ║ Glow Moss, ║                ││║            ║  ║  Crystal,  ║  ║            ║  ║  Pickaxe   ║│");
+        out.println("│                ║  Backpack  ║                ││║            ║  ║  Lantern   ║  ║            ║  ║ War Hammer ║│");
+        out.println("│                ╚════════════╝                ││╚════════════╝  ╚════════════╝  ╚════════════╝  ╚════════════╝│");
+        out.println("╰──────────────────────────────────────────────╯╰──────────────────────────────────────────────────────────────╯");
     }
 }

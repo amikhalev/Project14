@@ -1,7 +1,10 @@
 import java.io.PrintStream;
 import java.util.Scanner;
-import java.util.Random;
+//<<<<<<< Updated upstream
+import java.util.Random;    //if we ever get to random worldgen
 import java.util.Arrays;
+//=======
+//>>>>>>> Stashed changes
 /**
  * Project 14 The Zorkening!
  * Main Class
@@ -14,8 +17,13 @@ public class Main {
     private Scanner scanner;
     private PrintStream out;
     private boolean running;
+    private GameSaver save = new GameSaver();
+    //<<<<<<< Updated upstream
     private Player player;
     private Room currentRoom;
+    //=======
+    protected Player player1;
+    //     >>>>>>> Stashed changes
 
     public Main() {
         scanner = new Scanner(System.in);
@@ -24,8 +32,7 @@ public class Main {
     }
 
     public static Main getInstance() {
-        if (instance == null)
-            instance = new Main();
+        if (instance == null)  instance = new Main();
         return instance;
     }
 
@@ -72,9 +79,12 @@ public class Main {
         out.println("Project 14");
         out.println("Made by Alex Mikhalev and Tavi Kohn");
         running = true;
-        while (running) {
-            prompt();
-        }
+        /*Room wardrobe = new Room(
+                new List<Item>(
+                    new Armor("Wizard's Robes", "an old worn set of wizard's robes", 1), new Armor("Wizard's Hat", "an old worn wizard's hat", 1)
+                )
+            );*/
+        while (running) prompt();
     }
 
     public void prompt() {
@@ -91,22 +101,22 @@ public class Main {
             return;
         }
         switch (parts[0]) {
-        case "quit":
-        case "exit":
+            case "quit":
+            case "exit":
             out.println("Bye!");
             running = false;
             break;
-        case "cheat":
-            String cheatCode = String.join(" ", Arrays.asList(parts).subList(1, parts.length));
+            case "cheat":
+            String cheatCode = " " + Arrays.asList(parts).subList(1, parts.length);
             switch (cheatCode) {
-            case "i am the all seeing schreiber!":
+                case "i am the all seeing schreiber!":
                 printMap();
                 break;
-            default:
+                default:
                 out.printf("\"%s\" isn't a cheat code, scrub!\n", cheatCode);
             }
             break;
-        default:
+            default:
             out.printf("You said %s!\n", command);
             break;
         }

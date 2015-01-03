@@ -19,6 +19,7 @@ public class Room {
     protected Room up;
     protected Room down;
 
+    //<<<<<<< Updated upstream
     public Room(Item[] items, Character[] characters, String name, String description) {
         this.items = new ArrayList<Item>(Arrays.asList(items));
         this.characters = new ArrayList<Character>(Arrays.asList(characters));
@@ -66,27 +67,74 @@ public class Room {
         this.down = down;
     }
 
-    public Room goNorth() {
+    public Room getNorth() {
         return north;
+    }
+    
+    public Room getSouth() {
+        return south;
+    }
+    
+    public Room getEast() {
+        return east;
+    }
+    
+    public Room getWest() {
+        return west;
+    }
+    
+    public Room getUp() {
+        return up;
+    }
+    
+    public Room getDown() {
+        return down;
+    }
+    /*public void setDown(Room down) {
+    //=======
+    //  v-----This seems out of place. Maybe copy-pasta fail? 
+    public Room(List<Item> items, List<Character> characters) {
+    this.items = items;
+    this.characters = characters;
+    }
+
+    public Room(List<Item> items, List<Character> characters, Room north, Room south, Room east, Room west, Room up, Room down) {
+    this.items = items;
+    this.characters = characters;
+    this.north = north;
+    this.south = south;
+    this.east = east;
+    this.west = west;
+    this.up = up;
+    //    >>>>>>> Stashed changes
+    this.down = down;
+    }
+
+    public Room goNorth() {
+    return north;
     }
 
     public Room goSouth() {
-        return south;
+    return south;
     }
 
     public Room goEast() {
-        return east;
+    return east;
     }
 
     public Room goWest() {
-        return west;
+    return west;
     }
 
     public Room goUp() {
-        return up;
+    return up;
     }
 
     public Room goDown() {
-        return down;
+    return down;
     }
+    //<<<<<<< Updated upstream
+    }*/
+    //=======
 }
+//>>>>>>> Stashed changes

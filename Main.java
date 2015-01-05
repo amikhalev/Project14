@@ -14,6 +14,7 @@ public class Main {
     private Scanner scanner;
     private PrintStream out;
     private boolean running;
+    private GameSaver save = new GameSaver();
     private Player player;
     private Room currentRoom;
 
@@ -24,8 +25,7 @@ public class Main {
     }
 
     public static Main getInstance() {
-        if (instance == null)
-            instance = new Main();
+        if (instance == null)  instance = new Main();
         return instance;
     }
 
@@ -98,9 +98,7 @@ public class Main {
         out.println("Project 14");
         out.println("Made by Alex Mikhalev and Tavi Kohn");
         running = true;
-        while (running) {
-            prompt();
-        }
+        while (running) prompt();
     }
 
     public void prompt() {
@@ -117,18 +115,18 @@ public class Main {
             return;
         }
         switch (parts[0]) {
-        case "quit":
-        case "exit":
+            case "quit":
+            case "exit":
             out.println("Bye!");
             running = false;
             break;
-        case "cheat":
-            String cheatCode = String.join(" ", Arrays.asList(parts).subList(1, parts.length));
+            case "cheat":
+            String cheatCode = " " + Arrays.asList(parts).subList(1, parts.length);
             switch (cheatCode) {
-            case "i am the all seeing schreiber!":
+                case "i am the all seeing schreiber!":
                 printMap();
                 break;
-            default:
+                default:
                 out.printf("\"%s\" isn't a cheat code, scrub!\n", cheatCode);
             }
             break;

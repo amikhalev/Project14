@@ -74,27 +74,51 @@ public class Room {
         this.down = down;
     }
 
-    public Room goNorth() {
+    public Room getNorth() {
         return north;
+    }
+    
+    public Room getSouth() {
+        return south;
+    }
+    
+    public Room getEast() {
+        return east;
+    }
+    
+    public Room getWest() {
+        return west;
+    }
+    
+    public Room getUp() {
+        return up;
+    }
+    
+    public Room getDown() {
+        return down;
+    }
+    
+    public Room goNorth() {
+    return north;
     }
 
     public Room goSouth() {
-        return south;
+    return south;
     }
 
     public Room goEast() {
-        return east;
+    return east;
     }
 
     public Room goWest() {
-        return west;
+    return west;
     }
 
     public Room goUp() {
-        return up;
+    return up;
     }
 
     public Room goDown() {
-        return down;
+    return down;
     }
 }

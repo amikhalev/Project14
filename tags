@@ -1,0 +1,118 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ATTACK	Player.java	/^    private static final int ATTACK = 10;$/;"	f	class:Player	file:
+Armor	Armor.java	/^    public Armor(String name, String description, int defense) {$/;"	m	class:Armor
+Armor	Armor.java	/^public class Armor extends Equippable {$/;"	c
+Character	Character.java	/^    public Character(String name, String description, Item[] inventory, int health, int attack, int defense, boolean hostile) {$/;"	m	class:Character
+Character	Character.java	/^public class Character {$/;"	c
+DEFENSE	Player.java	/^    private static final int DEFENSE = 10;$/;"	f	class:Player	file:
+DESCRIPTION	Player.java	/^    private static final String DESCRIPTION = "A lonely traveller....";$/;"	f	class:Player	file:
+Equippable	Equippable.java	/^    public Equippable(String name, String description) {$/;"	m	class:Equippable
+Equippable	Equippable.java	/^public class Equippable extends Item {$/;"	c
+HEALTH	Player.java	/^    private static final int HEALTH = 10;$/;"	f	class:Player	file:
+Item	Item.java	/^    public Item(String name, String description) {$/;"	m	class:Item
+Item	Item.java	/^public class Item {$/;"	c
+Main	Main.java	/^    public Main() {$/;"	m	class:Main
+Main	Main.java	/^public class Main {$/;"	c
+Player	Player.java	/^    public Player(String name, Item[] inventory) {$/;"	m	class:Player
+Player	Player.java	/^public class Player extends Character {$/;"	c
+Room	Room.java	/^    public Room(String name, String description) {$/;"	m	class:Room
+Room	Room.java	/^public class Room {$/;"	c
+Usable	Usable.java	/^    public Usable(String name, String description, int healthChange, int attackChange, int defenseChange) {$/;"	m	class:Usable
+Usable	Usable.java	/^public class Usable extends Item {$/;"	c
+Weapon	Weapon.java	/^    public Weapon(String name, String description, int attack) {$/;"	m	class:Weapon
+Weapon	Weapon.java	/^public class Weapon extends Equippable {$/;"	c
+addCharacter	Room.java	/^    public void addCharacter(Character character) {$/;"	m	class:Room
+addItem	Room.java	/^    public void addItem(Item item) {$/;"	m	class:Room
+addScore	Main.java	/^    public static void addScore(int score) {$/;"	m	class:Main
+attack	Character.java	/^    protected int health, attack, defense;$/;"	f	class:Character
+attack	Player.java	/^    public void attack(Character target) {$/;"	m	class:Player
+attack	Weapon.java	/^    private int attack;$/;"	f	class:Weapon	file:
+attackChange	Usable.java	/^    protected int attackChange;$/;"	f	class:Usable
+characters	Room.java	/^    protected List<Character> characters;$/;"	f	class:Room
+currentRoom	Main.java	/^    private Room currentRoom;$/;"	f	class:Main	file:
+defense	Armor.java	/^    private int defense;$/;"	f	class:Armor	file:
+defense	Character.java	/^    protected int health, attack, defense;$/;"	f	class:Character
+defenseChange	Usable.java	/^    protected int defenseChange;$/;"	f	class:Usable
+description	Character.java	/^    protected String description;$/;"	f	class:Character
+description	Item.java	/^    protected String description;$/;"	f	class:Item
+description	Room.java	/^    protected String description;$/;"	f	class:Room
+description	Weapon.java	/^    private String description;$/;"	f	class:Weapon	file:
+down	Room.java	/^    protected Room down;$/;"	f	class:Room
+east	Room.java	/^    protected Room east;$/;"	f	class:Room
+equip	Player.java	/^    public void equip(Equippable equipment) {$/;"	m	class:Player
+equipped	Player.java	/^    protected List<Equippable> equipped;$/;"	f	class:Player
+examineRoom	Main.java	/^    private void examineRoom(Room room) {$/;"	m	class:Main	file:
+examineThing	Main.java	/^    private void examineThing(Room room, String name) {$/;"	m	class:Main	file:
+getAttack	Character.java	/^    public int getAttack() {$/;"	m	class:Character
+getAttack	Player.java	/^    public int getAttack() {$/;"	m	class:Player
+getAttack	Weapon.java	/^    public int getAttack() {$/;"	m	class:Weapon
+getCharacters	Room.java	/^    public List<Character> getCharacters() {$/;"	m	class:Room
+getDefense	Armor.java	/^    public int getDefense() {$/;"	m	class:Armor
+getDefense	Character.java	/^    public int getDefense() {$/;"	m	class:Character
+getDefense	Player.java	/^    public int getDefense() {$/;"	m	class:Player
+getDescription	Character.java	/^    public String getDescription() {$/;"	m	class:Character
+getDescription	Item.java	/^    public String getDescription() {$/;"	m	class:Item
+getDescription	Player.java	/^    public String getDescription() {$/;"	m	class:Player
+getDescription	Room.java	/^    public String getDescription() {$/;"	m	class:Room
+getHealth	Character.java	/^    public int getHealth() {$/;"	m	class:Character
+getHostile	Character.java	/^    public boolean getHostile() {$/;"	m	class:Character
+getInstance	Main.java	/^    public static Main getInstance() {$/;"	m	class:Main
+getItems	Room.java	/^    public List<Item> getItems() {$/;"	m	class:Room
+getName	Character.java	/^    public String getName() {$/;"	m	class:Character
+getName	Item.java	/^    public String getName() {$/;"	m	class:Item
+getName	Player.java	/^    public String getName() {$/;"	m	class:Player
+getName	Room.java	/^    public String getName() {$/;"	m	class:Room
+getScore	Main.java	/^    public int getScore() {$/;"	m	class:Main
+goDown	Room.java	/^    public Room goDown() {$/;"	m	class:Room
+goEast	Room.java	/^    public Room goEast() {$/;"	m	class:Room
+goNorth	Room.java	/^    public Room goNorth() {$/;"	m	class:Room
+goSouth	Room.java	/^    public Room goSouth() {$/;"	m	class:Room
+goUp	Room.java	/^    public Room goUp() {$/;"	m	class:Room
+goWest	Room.java	/^    public Room goWest() {$/;"	m	class:Room
+health	Character.java	/^    protected int health, attack, defense;$/;"	f	class:Character
+healthChange	Usable.java	/^    protected int healthChange;$/;"	f	class:Usable
+hostile	Character.java	/^    protected boolean hostile;$/;"	f	class:Character
+incrementScore	Main.java	/^    public void incrementScore(int score) {$/;"	m	class:Main
+instance	Main.java	/^    private static Main instance;$/;"	f	class:Main	file:
+inventory	Character.java	/^    protected List<Item> inventory;$/;"	f	class:Character
+items	Room.java	/^    protected List<Item> items;$/;"	f	class:Room
+main	Main.java	/^    public static void main(String[] args) {$/;"	m	class:Main
+makeRooms	Main.java	/^    private void makeRooms() {$/;"	m	class:Main	file:
+money	Player.java	/^    protected int money;$/;"	f	class:Player
+name	Character.java	/^    protected String name;$/;"	f	class:Character
+name	Item.java	/^    protected String name;$/;"	f	class:Item
+name	Room.java	/^    protected String name;$/;"	f	class:Room
+name	Weapon.java	/^    private String name;$/;"	f	class:Weapon	file:
+north	Room.java	/^    protected Room north;$/;"	f	class:Room
+out	Main.java	/^    private PrintStream out;$/;"	f	class:Main	file:
+player	Main.java	/^    private Player player;$/;"	f	class:Main	file:
+printMap	Main.java	/^    private void printMap() {$/;"	m	class:Main	file:
+process	Main.java	/^    public void process(String command) {$/;"	m	class:Main
+prompt	Main.java	/^    public void prompt() {$/;"	m	class:Main
+readCommand	Main.java	/^    public static void readCommand(String command) {$/;"	m	class:Main
+reset	Main.java	/^    public void reset() {$/;"	m	class:Main
+running	Main.java	/^    private boolean running;$/;"	f	class:Main	file:
+scanner	Main.java	/^    private Scanner scanner;$/;"	f	class:Main	file:
+score	Main.java	/^    private int score;$/;"	f	class:Main	file:
+setAttack	Character.java	/^    public void setAttack(int attack) {$/;"	m	class:Character
+setDefense	Character.java	/^    public void setDefense(int defense) {$/;"	m	class:Character
+setDown	Room.java	/^    public void setDown(Room down) {$/;"	m	class:Room
+setEast	Room.java	/^    public void setEast(Room east) {$/;"	m	class:Room
+setHealth	Character.java	/^    public void setHealth(int health) {$/;"	m	class:Character
+setHostile	Character.java	/^    public void setHostile(boolean hostile) {$/;"	m	class:Character
+setNorth	Room.java	/^    public void setNorth(Room north) {$/;"	m	class:Room
+setScore	Main.java	/^    public void setScore(int score) {$/;"	m	class:Main
+setSouth	Room.java	/^    public void setSouth(Room south) {$/;"	m	class:Room
+setUp	Room.java	/^    public void setUp(Room up) {$/;"	m	class:Room
+setWest	Room.java	/^    public void setWest(Room west) {$/;"	m	class:Room
+south	Room.java	/^    protected Room south;$/;"	f	class:Room
+start	Main.java	/^    public void start() {$/;"	m	class:Main
+up	Room.java	/^    protected Room up;$/;"	f	class:Room
+use	Usable.java	/^    public void use() {$/;"	m	class:Usable
+use	Usable.java	/^    public void use(Character target) {$/;"	m	class:Usable
+west	Room.java	/^    protected Room west;$/;"	f	class:Room

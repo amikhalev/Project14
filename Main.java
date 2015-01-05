@@ -115,18 +115,18 @@ public class Main {
             return;
         }
         switch (parts[0]) {
-            case "quit":
-            case "exit":
+        case "quit":
+        case "exit":
             out.println("Bye!");
             running = false;
             break;
-            case "cheat":
+        case "cheat":
             String cheatCode = " " + Arrays.asList(parts).subList(1, parts.length);
             switch (cheatCode) {
-                case "i am the all seeing schreiber!":
+            case "i am the all seeing schreiber!":
                 printMap();
                 break;
-                default:
+            default:
                 out.printf("\"%s\" isn't a cheat code, scrub!\n", cheatCode);
             }
             break;

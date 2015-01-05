@@ -14,7 +14,7 @@ public class Main {
     private Scanner scanner;
     private PrintStream out;
     private boolean running;
-    private GameSaver save = new GameSaver();
+    private SaveManager save = new SaveManager();
     private Player player;
     private Room currentRoom;
 
@@ -115,26 +115,26 @@ public class Main {
             return;
         }
         switch (parts[0]) {
-        case "quit":
-        case "exit":
+            case "quit":
+            case "exit":
             out.println("Bye!");
             running = false;
             break;
-        case "cheat":
+            case "cheat":
             String cheatCode = " " + Arrays.asList(parts).subList(1, parts.length);
             switch (cheatCode) {
-            case "i am the all seeing schreiber!":
+                case "i am the all seeing schreiber!":
                 printMap();
                 break;
-            default:
+                default:
                 out.printf("\"%s\" isn't a cheat code, scrub!\n", cheatCode);
             }
             break;
-        case "attack":
+            case "attack":
             break;
-        case "say":
+            case "say":
             break;
-        case "examine":
+            case "examine":
             if (parts.length == 1) {
                 examineRoom(currentRoom);
             } else if (parts.length == 2) {
@@ -144,11 +144,11 @@ public class Main {
                 out.println("I can't examine more than one thing!");
             }
             break;
-        case "take":
+            case "take":
             break;
-        case "use":
+            case "use":
             break;
-        default:
+            default:
             out.printf("I dont understand %s!\n", command);
             break;
         }

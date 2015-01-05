@@ -19,9 +19,9 @@ public class Room {
     protected Room up;
     protected Room down;
 
-    public Room(Item[] items, Character[] characters, String name, String description) {
-        this.items = new ArrayList<Item>(Arrays.asList(items));
-        this.characters = new ArrayList<Character>(Arrays.asList(characters));
+    public Room(String name, String description) {
+        this.items = new ArrayList<Item>();
+        this.characters = new ArrayList<Character>();
         this.name = name;
         this.description = description;
     }
@@ -32,6 +32,14 @@ public class Room {
 
     public String getDescription() {
         return description;
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    public void addCharacter(Character character) {
+        characters.add(character);
     }
 
     public List<Item> getItems() {

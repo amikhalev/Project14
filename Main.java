@@ -42,12 +42,38 @@ public class Main {
     }
 
     private void makeRooms() {
-        Room wizardsWardrobe = new Room(new Item[0], new Character[0], "Wizard's Wardrobe", "The wardrobe of the Wizard!");
-        Room wizardsGrotto = new Room(new Item[0], new Character[0], "Wizard's Grotto", "The grotto of the Wizard!");
-        Room grateRoom = new Room(new Item[0], new Character[0], "Grate Room", "A room with a grate!");
-        Room vault = new Room(new Item[0], new Character[0], "Vault", "A room with a vault!");
-        Room storeroom = new Room(new Item[0], new Character[0], "Storeroom", "A room with stores!");
-        Room risingRoom = new Room(new Item[0], new Character[0], "Rising Room", "The room in which you rise!");
+        Room wizardsWardrobe = new Room("Wizard's Wardrobe", "The wardrobe of the Wizard!");
+        Room wizardsGrotto = new Room("Wizard's Grotto", "The grotto of the Wizard!");
+        Room grateRoom = new Room("Grate Room", "A rectangular room with old-looking stone walls. There is a small puddle of water on the floor, and exits to the north, east, and west.");
+        grateRoom.addCharacter(new Character("Grate", "A metal grate in the floor, about three feet square, just big enough for you to fit through. You see water under the grate.", new Item[0], 0, 0, 0, false));
+        Room vault = new Room("Vault", "A room with a vault!");
+        Room storeRoom = new Room("Storeroom", "A room with stores!");
+        Room risingRoom = new Room("Rising Room", "The room in which you rise!");
+        Room windingTunnel = new Room("Winding Tunnel", "A tunnel that winds");
+        Room crystalCavern = new Room("Crystal Cavern", "A cavern of crystals!");
+        Room crystalHall = new Room("Crystal Hall", "A hall of crystals!");
+        Room throneRoom = new Room("Throne Room", "A room of thrones!");
+
+        wizardsWardrobe.setEast(wizardsGrotto);
+        wizardsGrotto.setWest(wizardsWardrobe);
+        wizardsGrotto.setSouth(grateRoom);
+        grateRoom.setNorth(wizardsGrotto);
+        grateRoom.setEast(vault);
+        vault.setWest(grateRoom);
+        grateRoom.setSouth(storeRoom);
+        storeRoom.setNorth(grateRoom);
+        grateRoom.setDown(risingRoom);
+        risingRoom.setUp(grateRoom);
+        risingRoom.setSouth(windingTunnel);
+        windingTunnel.setNorth(risingRoom);
+        windingTunnel.setEast(crystalCavern);
+        crystalCavern.setWest(windingTunnel);
+        crystalCavern.setEast(crystalHall);
+        crystalHall.setWest(crystalCavern);
+        crystalHall.setEast(throneRoom);
+        throneRoom.setWest(crystalHall);
+
+        currentRoom = grateRoom;
     }
 
     public void reset() {
@@ -106,10 +132,55 @@ public class Main {
                 out.printf("\"%s\" isn't a cheat code, scrub!\n", cheatCode);
             }
             break;
+        case "attack":
+            break;
+        case "say":
+            break;
+        case "examine":
+            if (parts.length == 1) {
+                examineRoom(currentRoom);
+            } else if (parts.length == 2) {
+                String itemName = parts[1];
+                examineThing(currentRoom, itemName);
+            } else {
+                out.println("I can't examine more than one thing!");
+            }
+            break;
+        case "take":
+            break;
+        case "use":
+            break;
         default:
-            out.printf("You said %s!\n", command);
+            out.printf("I dont understand %s!\n", command);
             break;
         }
+    }
+
+    private void examineRoom(Room room) {
+        out.printf("-- %s --\n", room.getName());
+        out.println(room.getDescription());
+        for (Item item : room.getItems()) {
+            out.printf("There is a(n) %s in the room\n", item.getName());
+        }
+        for (Character character : room.getCharacters()) {
+            out.printf("There is a(n) %s in the room\n", character.getName());
+        }
+    }
+
+    private void examineThing(Room room, String name) {
+        for (Item item : room.getItems()) {
+            if (item.getName().toLowerCase().equals(name)) {
+                out.printf("%s - %s\n", item.getName(), item.getDescription());
+                return;
+            }
+        }
+        for (Character character : room.getCharacters()) {
+            if (character.getName().toLowerCase().equals(name)) {
+                out.printf("%s - %s\n", character.getName(), character.getDescription());
+                return;
+            }
+        }
+        out.printf("There isn't a %s in the room!\n", name);
     }
 
     private void printMap() {

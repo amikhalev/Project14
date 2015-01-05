@@ -13,6 +13,7 @@ public class Character {
     protected List<Item> inventory;
     protected int health, attack, defense;
     protected boolean hostile;
+
     public Character(String name, String description, Item[] inventory, int health, int attack, int defense, boolean hostile) {
         this.name = name;
         this.description = description;

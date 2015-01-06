@@ -46,7 +46,7 @@ public class Main {
         Room wizardsGrotto = new Room("Wizard's ", "A small room, with a skylight above. There is a door to the East");
         Room grateRoom = new Room("Grate Room", "A rectangular room with old-looking stone walls. There is a small puddle of water on the floor, and exits to the north, east, and west.");
         grateRoom.addCharacter(new Character("Grate", "A metal grate in the floor, about three feet square, just big enough for you to fit through. There are tiny points of light rising up from the grate. There are exits to the North South and East", new Item[0], 0, 0, 0, false));
-        Room vault = new Room("Vault", "A room with a vault!");
+        Room vault = new Room("Vault", "A vault with ");
         Room storeRoom = new Room("Storeroom", "A room with stores!");
         Room risingRoom = new Room("Rising Room", "A mystic force pushes you upward towards a 3 foot square grate. There is a small exit to the South");
         Room windingTunnel = new Room("Winding Tunnel", "A tunnel that winds");

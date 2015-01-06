@@ -11,6 +11,10 @@ public class Item {
         this.name = name;
         this.description = description;
     }
+    
+    public Item(String saveString){
+        
+    }
 
     public String getName() {
         return name;
@@ -18,5 +22,9 @@ public class Item {
 
     public String getDescription() {
         return description;
+    }
+    
+    public String toString(){
+        return "Item," + name + "," + description;
     }
 }

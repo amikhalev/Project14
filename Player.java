@@ -13,13 +13,8 @@ public class Player extends Character {
     private static final int attack = 10;
     private static final int defense = 10;
     protected List<Equippable> equipped;
-    protected int money;
-    //=======
-    //protected String description;
-    //protected List<Equippable> equipped;
-    //protected List<Item> inventory;
-    //protected int money, health, baseAttack, baseDefense;
-    //>>>>>>> Stashed changes
+    protected List<Item> inventory;
+    protected int money, baseAttack, baseDefense;
 
     public Player(String name, Item[] inventory) {
         super(name, description, inventory, health, attack, defense, false);
@@ -36,47 +31,42 @@ public class Player extends Character {
             }
         }
         return attack + itemAttack;
-        //=======
-        // v-----This looks out of place. Maybe copy-pasta error?
-        /*public Player(String name, Vector<Item> inventory) {
-            super(name, inventory);
-        }
+    }
 
-        public int getBaseAttack() {
-            return attack;
-            //>>>>>>> Stashed changes
-        }
+    public int getBaseAttack() {
+        return attack;
+        //>>>>>>> Stashed changes
+    }
 
-        public int getDefense() {
-            int itemDefense = 0;
-            for (Equippable item : equipped) {
-                if (item instanceof Armor) {
-                    itemDefense += ((Armor) item).getDefense();
-                }
+    public int getDefense() {
+        int itemDefense = 0;
+        for (Equippable item : equipped) {
+            if (item instanceof Armor) {
+                itemDefense += ((Armor) item).getDefense();
             }
-            return defense + itemDefense;
         }
+        return defense + itemDefense;
+    }
 
-        public String getName() {
-            return name;
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void equip(Equippable equipment) {
+        equipped.add(equipment);
+    }
+
+    public void attack(Character target) {
+        int damage = (getAttack() - target.getDefense());
+        if (damage > 0) {
+            target.setHealth(target.getHealth() - damage);
+            System.out.printf("You attacked the %s for %d damage!\n", target.getName(), damage);
+        } else {
+            System.out.printf("The %s's armor is to strong!\n", target.getName());
         }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void equip(Equippable equipment) {
-            equipped.add(equipment);
-        }
-
-        public void attack(Character target) {
-            int damage = (getAttack() - target.getDefense());
-            if (damage > 0) {
-                target.setHealth(target.getHealth() - damage);
-                System.out.printf("You attacked the %s for %d damage!\n", target.getName(), damage);
-            } else {
-                System.out.printf("The %s's armor is to strong!\n", target.getName());
-            }
-        }*/
     }
 }

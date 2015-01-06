@@ -107,11 +107,53 @@ public class SaveManager {
                     while(fScan.hasNext()){
                         objects.add(new String(DatatypeConverter.parseBase64Binary(fScan.nextLine())));
                     }
-                    
                     for(int i = objects.toArray().length/2; i < objects.toArray().length -1;){
                         objects.remove(i);
                     }
-                    
+                    String[] strArray = (String[])objects.toArray();
+                    objects.clear();
+                    for(String objString: strArray){
+                        String[] objStringArray = objString.split(",");
+                        switch(objStringArray[0]){
+                            case "Armor":
+                            objects.add(new Armor(objStringArray[1], objStringArray[2], Integer.parseInt(objStringArray[3])));
+                            break;
+
+                            case "Weapon":
+                            objects.add(new Weapon(objStringArray[1], objStringArray[2], Integer.parseInt(objStringArray[3])));
+                            break;
+
+                            case "Equippable":
+                            objects.add(new Armor(objStringArray[1], objStringArray[2], Integer.parseInt(objStringArray[3])));
+                            break;
+
+                            case "Usable":
+                            objects.add(new Usable(objStringArray[1], objStringArray[2], Integer.parseInt(objStringArray[3]), Integer.parseInt(objStringArray[4]), Integer.parseInt(objStringArray[5])));
+                            break;
+
+                            case "Character":
+                            //Needs modification for any number of items
+                            List<Item> items = new ArrayList<Item>();
+                            int i;
+                            for(i = 4; i < objStringArray.length - 4; i += 2){
+                                items.add(new Item(objStringArray[i - 1], objStringArray[i]));
+                            }
+                            objects.add(new Character(objStringArray[1], objStringArray[2], (Item[])items.toArray(), Integer.parseInt(objStringArray[i]), Integer.parseInt(objStringArray[i + 1]), Integer.parseInt(objStringArray[i + 2]), Boolean.parseBoolean(objStringArray[i + 3])));
+                            break;
+
+                            case "Player":
+
+                            break;
+
+                            case "Item":
+
+                            break;
+
+                            case "Room":
+
+                            break;
+                        }
+                    }
                     fScan.close();
                     world = new World(objects.toArray());
                     System.out.println("Done!");

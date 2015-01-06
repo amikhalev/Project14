@@ -8,9 +8,6 @@ public class SaveManager {
     private Scanner scanner = new Scanner(System.in);
     private File save;
     private List<Object> objects = new ArrayList<Object>();
-    public SaveManager(){
-
-    }
 
     public int saveGame(World world) throws IOException {
         System.out.println("Please enter a directory (folder) path to save your game (ex: C:\\\\Games\\Zork Clone or /Users/Example User/Documents/Zork Clone) or press enter to cancel");
@@ -36,40 +33,40 @@ public class SaveManager {
             save = new File(parts[0]);
             FileWriter fileWrite = new FileWriter(save);
             PrintWriter printWrite = new PrintWriter(fileWrite);
-            if(save.exists() && save.isFile()){
+            if(save.exists() && save.isFile()) {
                 System.out.println("Save file already exists. Do you want to overwrite it? (y/n)");
-                if(scanner.nextLine().toLowerCase().equals("y") || scanner.nextLine().toLowerCase().equals("yes")){
-                    if(save.canRead() && save.canWrite()){
+                if(scanner.nextLine().toLowerCase().equals("y") || scanner.nextLine().toLowerCase().equals("yes")) {
+                    if(save.canRead() && save.canWrite()) {
                         System.out.println("Saving . . .");
                         objects.clear();
                         objects = world.getObjects();
                         Object[] objArray = objects.toArray();
-                        for(Object obj : objArray){
+                        for(Object obj : objArray) {
                             printWrite.println(new String(DatatypeConverter.printBase64Binary(obj.toString().getBytes())));
                         }
                         printWrite.close();
                         fileWrite.close();
                         System.out.println("Done!");
-                    }else{
+                    } else {
                         System.out.println("File does not have read/write access! Please specify a different file or change file permissions and try again");
                         promptSave(parts);
                         if(!save.exists()) {
                             System.out.println("The path you specified does not represent a valid directory");
-                        }else if(!save.exists() || !save.isFile()){
+                        } else if(!save.exists() || !save.isFile()) {
                             System.out.println("Save File does not exists. Do you want to create a new save? (y/n)");
-                            if(scanner.nextLine().toLowerCase().equals("y") || scanner.nextLine().toLowerCase().equals("yes")){
-                                try{
+                            if(scanner.nextLine().toLowerCase().equals("y") || scanner.nextLine().toLowerCase().equals("yes")) {
+                                try {
                                     save.createNewFile();
-                                }catch(java.io.IOException x){
+                                } catch(java.io.IOException x) {
                                     System.err.format(">IOException: %s%n", x);
                                 }
-                                if(save.canRead() && save.canWrite()){
+                                if(save.canRead() && save.canWrite()) {
                                     //Save file
-                                }else{
+                                } else {
                                     System.out.println("File does not have read/write access! Please specify a different file or change file permissions and try again");
                                     promptSave(parts);
                                 }
-                            }else{
+                            } else {
                                 System.out.println("Cancelled create new save");
                             }
                         }
@@ -99,12 +96,12 @@ public class SaveManager {
             default:
             save = new File(parts[0]);
             Scanner fScan = new Scanner(save);
-            if(save.exists() && save.isFile()){
+            if(save.exists() && save.isFile()) {
                 System.out.println("Save file found: " + parts[0]);
-                if(save.canRead() && save.canWrite()){
+                if(save.canRead() && save.canWrite()) {
                     System.out.println("Loading . . .");
                     objects.clear();
-                    while(fScan.hasNext()){
+                    while(fScan.hasNext()) {
                         objects.add(new String(DatatypeConverter.parseBase64Binary(fScan.nextLine())));
                     }
                     for(int i = objects.toArray().length/2; i < objects.toArray().length -1;){
@@ -157,11 +154,11 @@ public class SaveManager {
                     fScan.close();
                     world = new World(objects.toArray());
                     System.out.println("Done!");
-                }else{
+                } else {
                     System.out.println("File does not have read/write access! Please specify a different file or change file permissions and try again");
                     promptLoad(parts);
                 }
-            }else if(!save.exists() || !save.isFile()){
+            } else if(!save.exists() || !save.isFile()) {
                 System.out.println("File not found. Check for typos or incorrect path notation and try again");
                 promptLoad(parts);
             }

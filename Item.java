@@ -20,7 +20,7 @@ public class Item {
         return description;
     }
 
-    public String toString(){
+    public String toString() {
         return "Item," + name + "," + description;
     }
 }

@@ -12,11 +12,19 @@ public class Item {
         this.description = description;
     }
 
+    public Item(String saveString) {
+
+    }
+
     public String getName() {
         return name;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public String toString() {
+        return "Item," + name + "," + description;
     }
 }

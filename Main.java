@@ -42,17 +42,19 @@ public class Main {
     }
 
     private void makeRooms() {
-        Room wizardsWardrobe = new Room("Wizard's Wardrobe", "The wardrobe of the Wizard!");
-        Room wizardsGrotto = new Room("Wizard's Grotto", "The grotto of the Wizard!");
-        Room grateRoom = new Room("Grate Room", "A rectangular room with old-looking stone walls. There is a small puddle of water on the floor, and exits to the north, east, and south.");
-        grateRoom.addCharacter(new Character("Grate", "A metal grate in the floor, about three feet square, just big enough for you to fit through. You see water under the grate.", new Item[0], 0, 0, 0, false));
-        Room vault = new Room("Vault", "A room with a vault!");
+        Room wizardsWardrobe = new Room("Wizard's Wardrobe", "A small wardrobe with a door to the West");
+        Room wizardsGrotto = new Room("Wizard's ", "A small room, with a skylight above. There is a door to the East");
+        Room grateRoom = new Room("Grate Room", "A rectangular room with old-looking stone walls. There is a small puddle of water on the floor, and exits to the north, east, and west.");
+        grateRoom.addCharacter(new Character("Grate", "A metal grate in the floor, about three feet square, just big enough for you to fit through. There are tiny points of light rising up from the grate.", new Item[0], 0, 0, 0, false));
+        Room vault = new Room("Vault", "A vault with ");
         Room storeRoom = new Room("Storeroom", "A room with stores!");
-        Room risingRoom = new Room("Rising Room", "The room in which you rise!");
+        Room risingRoom = new Room("Rising Room", "A mystic force pushes you upward towards a 3 foot square grate. There is a small exit to the South");
         Room windingTunnel = new Room("Winding Tunnel", "A tunnel that winds");
         Room crystalCavern = new Room("Crystal Cavern", "A cavern of crystals!");
-        Room crystalHall = new Room("Crystal Hall", "A hall of crystals!");
-        Room throneRoom = new Room("Throne Room", "A room of thrones!");
+        Room crystalHall = new Room("Crystal Hall", "A large hall with the walls carved from some crystal. There are exits to the East and West");
+        Room throneRoom = new Room("Throne Room", "A great room with a slightly undersized crystal throne. There is an exit to the West");
+
+        Item moss = new Item("Glow Moss", "A clump of glowing moss");
 
         wizardsWardrobe.setEast(wizardsGrotto);
         wizardsGrotto.setWest(wizardsWardrobe);
@@ -163,24 +165,24 @@ public class Main {
 
     private void navigate(String direction) {
         switch (direction) {
-            case "north":
-                navigate(currentRoom.getNorth());
-                break;
-            case "east":
-                navigate(currentRoom.getEast());
-                break;
-            case "south":
-                navigate(currentRoom.getSouth());
-                break;
-            case "west":
-                navigate(currentRoom.getWest());
-                break;
-            case "up":
-                navigate(currentRoom.getUp());
-                break;
-            case "down":
-                navigate(currentRoom.getDown());
-                break;
+        case "north":
+            navigate(currentRoom.getNorth());
+            break;
+        case "east":
+            navigate(currentRoom.getEast());
+            break;
+        case "south":
+            navigate(currentRoom.getSouth());
+            break;
+        case "west":
+            navigate(currentRoom.getWest());
+            break;
+        case "up":
+            navigate(currentRoom.getUp());
+            break;
+        case "down":
+            navigate(currentRoom.getDown());
+            break;
         }
     }
 
@@ -217,7 +219,7 @@ public class Main {
                 return;
             }
         }
-        out.printf("There isn't a %s in the room!\n", name);
+        out.printf("There isn't a(n) %s in this area!\n", name);
     }
 
     private void printMap() {

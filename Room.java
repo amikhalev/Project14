@@ -26,6 +26,18 @@ public class Room {
         this.description = description;
     }
 
+    public Room(List<Item> items, List<Character> characters, Room north, Room south, Room east, Room west, Room up, Room down) {
+        this.items = items;
+        this.characters = characters;
+        this.north = north;
+        this.south = south;
+        this.east = east;
+        this.west = west;
+        this.up = up;
+        //    >>>>>>> Stashed changes
+        this.down = down;
+    }
+
     public String getName() {
         return name;
     }
@@ -97,25 +109,6 @@ public class Room {
     public Room getDown() {
         return down;
     }
-
-    /*public void setDown(Room down) {
-    //=======
-    public Room(List<Item> items, List<Character> characters) {
-    this.items = items;
-    this.characters = characters;
-    }
-
-    public Room(List<Item> items, List<Character> characters, Room north, Room south, Room east, Room west, Room up, Room down) {
-    this.items = items;
-    this.characters = characters;
-    this.north = north;
-    this.south = south;
-    this.east = east;
-    this.west = west;
-    this.up = up;
-    //    >>>>>>> Stashed changes
-    this.down = down;
-    }*/
 
     public Room goNorth() {
         return north;

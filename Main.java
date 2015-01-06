@@ -44,7 +44,7 @@ public class Main {
     private void makeRooms() {
         Room wizardsWardrobe = new Room("Wizard's Wardrobe", "The wardrobe of the Wizard!");
         Room wizardsGrotto = new Room("Wizard's Grotto", "The grotto of the Wizard!");
-        Room grateRoom = new Room("Grate Room", "A rectangular room with old-looking stone walls. There is a small puddle of water on the floor, and exits to the north, east, and west.");
+        Room grateRoom = new Room("Grate Room", "A rectangular room with old-looking stone walls. There is a small puddle of water on the floor, and exits to the north, east, and south.");
         grateRoom.addCharacter(new Character("Grate", "A metal grate in the floor, about three feet square, just big enough for you to fit through. You see water under the grate.", new Item[0], 0, 0, 0, false));
         Room vault = new Room("Vault", "A room with a vault!");
         Room storeRoom = new Room("Storeroom", "A room with stores!");
@@ -98,6 +98,7 @@ public class Main {
         out.println("Project 14");
         out.println("Made by Alex Mikhalev and Tavi Kohn");
         running = true;
+        examineRoom(currentRoom);
         while (running) prompt();
     }
 
@@ -115,26 +116,32 @@ public class Main {
             return;
         }
         switch (parts[0]) {
-            case "quit":
-            case "exit":
+        case "quit":
+        case "exit":
             out.println("Bye!");
             running = false;
             break;
-            case "cheat":
+        case "cheat":
             String cheatCode = " " + Arrays.asList(parts).subList(1, parts.length);
             switch (cheatCode) {
-                case "i am the all seeing schreiber!":
+            case "i am the all seeing schreiber!":
                 printMap();
                 break;
-                default:
+            default:
                 out.printf("\"%s\" isn't a cheat code, scrub!\n", cheatCode);
             }
             break;
-            case "attack":
+        case "go":
+            if (parts.length != 2)
+                out.println("I don't understand that");
+            else
+                navigate(parts[1]);
             break;
-            case "say":
+        case "attack":
             break;
-            case "examine":
+        case "say":
+            break;
+        case "examine":
             if (parts.length == 1) {
                 examineRoom(currentRoom);
             } else if (parts.length == 2) {
@@ -144,14 +151,46 @@ public class Main {
                 out.println("I can't examine more than one thing!");
             }
             break;
-            case "take":
+        case "take":
             break;
-            case "use":
+        case "use":
             break;
-            default:
+        default:
             out.printf("I dont understand %s!\n", command);
             break;
         }
+    }
+
+    private void navigate(String direction) {
+        switch (direction) {
+            case "north":
+                navigate(currentRoom.getNorth());
+                break;
+            case "east":
+                navigate(currentRoom.getEast());
+                break;
+            case "south":
+                navigate(currentRoom.getSouth());
+                break;
+            case "west":
+                navigate(currentRoom.getWest());
+                break;
+            case "up":
+                navigate(currentRoom.getUp());
+                break;
+            case "down":
+                navigate(currentRoom.getDown());
+                break;
+        }
+    }
+
+    private void navigate(Room room) {
+        if (room == null) {
+            out.println("You run your head into a wall and get a concussion");
+            return;
+        }
+        currentRoom = room;
+        examineRoom(currentRoom);
     }
 
     private void examineRoom(Room room) {

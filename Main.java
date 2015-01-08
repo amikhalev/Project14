@@ -14,7 +14,7 @@ public class Main {
     private Scanner scanner;
     private PrintStream out;
     private boolean running;
-    private SaveManager save = new SaveManager();
+    //private SaveManager save = new SaveManager();
     private Player player;
     private Room currentRoom;
 
@@ -55,7 +55,18 @@ public class Main {
         Room throneRoom = new Room("Throne Room", "A great room with a slightly undersized crystal throne. There is an exit to the West");
 
         Item moss = new Item("Glow Moss", "A clump of glowing moss");
-
+        Item backpack = new Item("Leather Backpack", "A simple sturdy leather backpack");
+        Item coal = new Item("Coal", "A large quantity of coal");
+        Item staff = new Item("Old Staff", "An old wooden staff with a cavity at the top");
+        Item spellBook = new Item("Ancient Spellbook", "An ancient tome with letters that seem to shift across the page");
+        Armor robe = new Armor("Wizard's Robe", "A set of dark robes with symbols along the hem. +3 Defense", 3);
+        Armor hat = new Armor("Wizard's Hat", "A pointy hat that makes your ears buzz when you put it on. +1 Defense", 1);
+        Weapon hammer = new Weapon("War Hammer", "A mighty hammer of smashing things. +8 Attack", 8);
+        Item flint = new Item("Piece of Flint", "A small black piece of flint");
+        Item crystal = new Item("Crystal Shard", "A glowing shard of crystal");
+        Item lantern = new Item("Lantern", "A small lantern with plenty of fuel");
+        Item pickaxe = new Item("Rusty Pickaxe", "An old rusty worn pickaxe");
+        
         wizardsWardrobe.setEast(wizardsGrotto);
         wizardsGrotto.setWest(wizardsWardrobe);
         wizardsGrotto.setSouth(grateRoom);
@@ -118,32 +129,32 @@ public class Main {
             return;
         }
         switch (parts[0]) {
-        case "quit":
-        case "exit":
+            case "quit":
+            case "exit":
             out.println("Bye!");
             running = false;
             break;
-        case "cheat":
+            case "cheat":
             String cheatCode = " " + Arrays.asList(parts).subList(1, parts.length);
             switch (cheatCode) {
-            case "i am the all seeing schreiber!":
+                case "i am the all seeing schreiber!":
                 printMap();
                 break;
-            default:
+                default:
                 out.printf("\"%s\" isn't a cheat code, scrub!\n", cheatCode);
             }
             break;
-        case "go":
+            case "go":
             if (parts.length != 2)
                 out.println("I don't understand that");
             else
                 navigate(parts[1]);
             break;
-        case "attack":
+            case "attack":
             break;
-        case "say":
+            case "say":
             break;
-        case "examine":
+            case "examine":
             if (parts.length == 1) {
                 examineRoom(currentRoom);
             } else if (parts.length == 2) {
@@ -153,11 +164,11 @@ public class Main {
                 out.println("I can't examine more than one thing!");
             }
             break;
-        case "take":
+            case "take":
             break;
-        case "use":
+            case "use":
             break;
-        default:
+            default:
             out.printf("I dont understand %s!\n", command);
             break;
         }
@@ -165,22 +176,22 @@ public class Main {
 
     private void navigate(String direction) {
         switch (direction) {
-        case "north":
+            case "north":
             navigate(currentRoom.getNorth());
             break;
-        case "east":
+            case "east":
             navigate(currentRoom.getEast());
             break;
-        case "south":
+            case "south":
             navigate(currentRoom.getSouth());
             break;
-        case "west":
+            case "west":
             navigate(currentRoom.getWest());
             break;
-        case "up":
+            case "up":
             navigate(currentRoom.getUp());
             break;
-        case "down":
+            case "down":
             navigate(currentRoom.getDown());
             break;
         }

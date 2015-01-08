@@ -69,4 +69,12 @@ public class Player extends Character {
             System.out.printf("The %s's armor is to strong!\n", target.getName());
         }
     }
+    
+    public String toString(){
+        String items = ",";
+        for(int i = 0; i < inventory.size(); i++){
+            items += inventory.toArray()[i].toString() + ",";
+        }
+        return "Player" + "," + name + "," + inventory.size() + items;
+    }
 }

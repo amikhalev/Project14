@@ -63,4 +63,12 @@ public class Character {
     public boolean getHostile() {
         return hostile;
     }
+    
+    public String toString(){
+        String items = ",";
+        for(int i = 0; i < inventory.size(); i++){
+            items += inventory.toArray()[i].toString() + ",";
+        }
+        return name + "," + description + "," + inventory.size() + items + "," + health + "," + attack + "," + defense + "," + hostile;
+    }
 }

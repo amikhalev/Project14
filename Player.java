@@ -55,11 +55,11 @@ public class Player extends Character {
     public String getDescription() {
         return description;
     }
-
+    
     public void equip(Equippable equipment) {
         equipped.add(equipment);
     }
-
+    
     public void attack(Character target) {
         int damage = (getAttack() - target.getDefense());
         if (damage > 0) {

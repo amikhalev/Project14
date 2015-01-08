@@ -14,7 +14,7 @@ public class Main {
     private Scanner scanner;
     private PrintStream out;
     private boolean running;
-    //private SaveManager save = new SaveManager();
+    private SaveManager save = new SaveManager();
     private Player player;
     private Room currentRoom;
 
@@ -68,23 +68,43 @@ public class Main {
         Item pickaxe = new Item("Rusty Pickaxe", "An old rusty worn pickaxe");
         
         wizardsWardrobe.setEast(wizardsGrotto);
+        wizardsWardrobe.addItem(hat);
+        wizardsWardrobe.addItem(robe);
+        
         wizardsGrotto.setWest(wizardsWardrobe);
         wizardsGrotto.setSouth(grateRoom);
+        wizardsGrotto.addItem(spellBook);
+        wizardsGrotto.addItem(staff);
+        
         grateRoom.setNorth(wizardsGrotto);
         grateRoom.setEast(vault);
-        vault.setWest(grateRoom);
         grateRoom.setSouth(storeRoom);
-        storeRoom.setNorth(grateRoom);
         grateRoom.setDown(risingRoom);
+        
+        vault.setWest(grateRoom);
+        
+        storeRoom.setNorth(grateRoom);
+        storeRoom.addItem(coal);
+        storeRoom.addItem(backpack);
+        storeRoom.addItem(moss);
+        
         risingRoom.setUp(grateRoom);
         risingRoom.setSouth(windingTunnel);
+        
         windingTunnel.setNorth(risingRoom);
         windingTunnel.setEast(crystalCavern);
+        
         crystalCavern.setWest(windingTunnel);
         crystalCavern.setEast(crystalHall);
+        
         crystalHall.setWest(crystalCavern);
         crystalHall.setEast(throneRoom);
+        crystalHall.addItem(lantern);
+        //Flint and Shard added in game logic
+        
         throneRoom.setWest(crystalHall);
+        throneRoom.addItem(hammer);
+        throneRoom.addItem(pickaxe);
 
         currentRoom = grateRoom;
     }
@@ -167,6 +187,9 @@ public class Main {
             case "take":
             break;
             case "use":
+            break;
+            case "save":
+            System.out.println("Save Game currently no implemented");
             break;
             default:
             out.printf("I dont understand %s!\n", command);

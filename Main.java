@@ -46,11 +46,11 @@ public class Main {
         Room wizardsGrotto = new Room("Wizard's ", "A small room, with a skylight above. There is a door to the East");
         Room grateRoom = new Room("Grate Room", "A rectangular room with old-looking stone walls. There is a small puddle of water on the floor, and exits to the north, east, and west.");
         grateRoom.addCharacter(new Character("Grate", "A metal grate in the floor, about three feet square, just big enough for you to fit through. There are tiny points of light rising up from the grate.", new Item[0], 0, 0, 0, false));
-        Room vault = new Room("Vault", "A vault with ");
-        Room storeRoom = new Room("Storeroom", "A room with stores!");
+        Room vault = new Room("Vault", "A large ancient vault");
+        Room storeRoom = new Room("Storeroom", "A musty old storeroom");
         Room risingRoom = new Room("Rising Room", "A mystic force pushes you upward towards a 3 foot square grate. There is a small exit to the South");
-        Room windingTunnel = new Room("Winding Tunnel", "A tunnel that winds");
-        Room crystalCavern = new Room("Crystal Cavern", "A cavern of crystals!");
+        Room windingTunnel = new Room("Winding Tunnel", "A tunnel that twists and turns");
+        Room crystalCavern = new Room("Crystal Cavern", "A cavern with giant glowing crystals protruding from the wall");
         Room crystalHall = new Room("Crystal Hall", "A large hall with the walls carved from some crystal. There are exits to the East and West");
         Room throneRoom = new Room("Throne Room", "A great room with a slightly undersized crystal throne. There is an exit to the West");
 
@@ -66,42 +66,42 @@ public class Main {
         Item crystal = new Item("Crystal Shard", "A glowing shard of crystal");
         Item lantern = new Item("Lantern", "A small lantern with plenty of fuel");
         Item pickaxe = new Item("Rusty Pickaxe", "An old rusty worn pickaxe");
-        
+
         wizardsWardrobe.setEast(wizardsGrotto);
         wizardsWardrobe.addItem(hat);
         wizardsWardrobe.addItem(robe);
-        
+
         wizardsGrotto.setWest(wizardsWardrobe);
         wizardsGrotto.setSouth(grateRoom);
         wizardsGrotto.addItem(spellBook);
         wizardsGrotto.addItem(staff);
-        
+
         grateRoom.setNorth(wizardsGrotto);
         grateRoom.setEast(vault);
         grateRoom.setSouth(storeRoom);
         grateRoom.setDown(risingRoom);
-        
+
         vault.setWest(grateRoom);
-        
+
         storeRoom.setNorth(grateRoom);
         storeRoom.addItem(coal);
         storeRoom.addItem(backpack);
         storeRoom.addItem(moss);
-        
+
         risingRoom.setUp(grateRoom);
         risingRoom.setSouth(windingTunnel);
-        
+
         windingTunnel.setNorth(risingRoom);
         windingTunnel.setEast(crystalCavern);
-        
+
         crystalCavern.setWest(windingTunnel);
         crystalCavern.setEast(crystalHall);
-        
+
         crystalHall.setWest(crystalCavern);
         crystalHall.setEast(throneRoom);
         crystalHall.addItem(lantern);
         //Flint and Shard added in game logic
-        
+
         throneRoom.setWest(crystalHall);
         throneRoom.addItem(hammer);
         throneRoom.addItem(pickaxe);
@@ -222,11 +222,12 @@ public class Main {
 
     private void navigate(Room room) {
         if (room == null) {
-            out.println("You run your head into a wall and get a concussion");
+            out.println("You run your head into a wall and now have a slight headache");
             return;
+        }else{
+            currentRoom = room;
+            examineRoom(currentRoom);
         }
-        currentRoom = room;
-        examineRoom(currentRoom);
     }
 
     private void examineRoom(Room room) {

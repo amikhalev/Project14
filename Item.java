@@ -12,10 +12,6 @@ public class Item {
         this.description = description;
     }
 
-    public Item(String saveString) {
-
-    }
-
     public String getName() {
         return name;
     }

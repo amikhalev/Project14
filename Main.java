@@ -1,4 +1,5 @@
 import java.io.PrintStream;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ public class Main {
     private PrintStream out;
     private boolean running;
     private SaveManager save = new SaveManager();
+    private List<Object> itemList;
     private Player player;
     private Room currentRoom;
 
@@ -43,7 +45,7 @@ public class Main {
 
     private void makeRooms() {
         Room wizardsWardrobe = new Room("Wizard's Wardrobe", "A small wardrobe with a door to the West");
-        Room wizardsGrotto = new Room("Wizard's ", "A small room, with a skylight above. There is a door to the East");
+        Room wizardsGrotto = new Room("Wizard's Spellchamber", "A small room, with a skylight above. There is a door to the East");
         Room grateRoom = new Room("Grate Room", "A rectangular room with old-looking stone walls. There is a small puddle of water on the floor, and exits to the north, east, and west.");
         grateRoom.addCharacter(new Character("Grate", "A metal grate in the floor, about three feet square, just big enough for you to fit through. There are tiny points of light rising up from the grate.", new Item[0], 0, 0, 0, false));
         Room vault = new Room("Vault", "A large ancient vault");
@@ -54,16 +56,16 @@ public class Main {
         Room crystalHall = new Room("Crystal Hall", "A large hall with the walls carved from some crystal. There are exits to the East and West");
         Room throneRoom = new Room("Throne Room", "A great room with a slightly undersized crystal throne. There is an exit to the West");
 
-        Item moss = new Item("Glow Moss", "A clump of glowing moss");
-        Item backpack = new Item("Leather Backpack", "A simple sturdy leather backpack");
+        Item moss = new Item("Moss", "A clump of glowing moss");
+        Item backpack = new Item("Backpack", "A simple sturdy leather backpack");
         Item coal = new Item("Coal", "A large quantity of coal");
-        Item staff = new Item("Old Staff", "An old wooden staff with a cavity at the top");
-        Item spellBook = new Item("Ancient Spellbook", "An ancient tome with letters that seem to shift across the page");
-        Armor robe = new Armor("Wizard's Robe", "A set of dark robes with symbols along the hem. +3 Defense", 3);
-        Armor hat = new Armor("Wizard's Hat", "A pointy hat that makes your ears buzz when you put it on. +1 Defense", 1);
-        Weapon hammer = new Weapon("War Hammer", "A mighty hammer of smashing things. +8 Attack", 8);
-        Item flint = new Item("Piece of Flint", "A small black piece of flint");
-        Item crystal = new Item("Crystal Shard", "A glowing shard of crystal");
+        Item staff = new Item("Staff", "An old wooden staff with a cavity at the top");
+        Item spellBook = new Item("Spellbook", "An ancient tome with letters that seem to shift across the page. Some you can translate:\n\tTransmutation:\n\tUsing a ... it is possible to ...\n\t for example chocolate (agherm)...\n\n The rest of the book is stained, burned, and unreadable");
+        Armor robe = new Armor("Robe", "A set of dark robes with symbols along the hem. +3 Defense", 3);
+        Armor hat = new Armor("Hat", "A pointy hat that makes your ears buzz when you put it on. +1 Defense", 1);
+        Weapon hammer = new Weapon("Hammer", "A mighty hammer of smashing things. +8 Attack", 8);
+        Item flint = new Item("Flint", "A small black piece of flint");
+        Item crystal = new Item("Shard", "A glowing shard of crystal");
         Item lantern = new Item("Lantern", "A small lantern with plenty of fuel");
         Item pickaxe = new Item("Rusty Pickaxe", "An old rusty worn pickaxe");
 
@@ -100,7 +102,7 @@ public class Main {
         crystalHall.setWest(crystalCavern);
         crystalHall.setEast(throneRoom);
         crystalHall.addItem(lantern);
-        //Flint and Shard added in game logic
+        //Flint and Crystal Shard added in game logic (when player inspects the room, flint gets added; when they break the crystals in the room, they get the crystal shard)
 
         throneRoom.setWest(crystalHall);
         throneRoom.addItem(hammer);
@@ -188,8 +190,20 @@ public class Main {
             break;
             case "use":
             break;
+            case "load":
+            try{
+                itemList = save.loadSave().getObjects();
+                player = new Player(player.getName(), (Item[])itemList.toArray());
+            }catch (java.io.IOException e){
+                out.println("Load Failed!");
+            }
+            break;
             case "save":
-            System.out.println("Save Game currently no implemented");
+            try{
+                save.saveGame(new World(player.getInventory().toArray()));
+            }catch (java.io.IOException e){
+                out.println("Save Failed!");
+            }
             break;
             default:
             out.printf("I dont understand %s!\n", command);

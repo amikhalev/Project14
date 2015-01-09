@@ -7,7 +7,6 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class Player extends Character {
-    //<<<<<<< Updated upstream
     private static final String description = "A lonely traveller…";
     private static final int health = 10;
     private static final int attack = 10;
@@ -22,7 +21,6 @@ public class Player extends Character {
         this.money = 0;
     }
 
-    //<<<<<<< Updated upstream
     public int getAttack() {
         int itemAttack = 0;
         for (Equippable item : equipped) {
@@ -35,7 +33,6 @@ public class Player extends Character {
 
     public int getBaseAttack() {
         return attack;
-        //>>>>>>> Stashed changes
     }
 
     public int getDefense() {
@@ -56,6 +53,10 @@ public class Player extends Character {
         return description;
     }
     
+    public List<Item> getInventory(){
+        return inventory;
+    }
+    
     public void equip(Equippable equipment) {
         equipped.add(equipment);
     }
@@ -68,13 +69,5 @@ public class Player extends Character {
         } else {
             System.out.printf("The %s's armor is to strong!\n", target.getName());
         }
-    }
-    
-    public String toString(){
-        String items = ",";
-        for(int i = 0; i < inventory.size(); i++){
-            items += inventory.toArray()[i].toString() + ",";
-        }
-        return "Player" + "," + name + "," + inventory.size() + items;
     }
 }

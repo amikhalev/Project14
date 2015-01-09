@@ -84,7 +84,7 @@ public class SaveManager {
         }
     }
 
-    public World loadSave() throws IOException {
+    public World loadSave() throws IOException{
         System.out.println("Please enter a directory (folder) path to your saved game (ex: C:\\\\Games\\Zork Clone\\save.dat or /Users/Example User/Documents/Zork Clone/save.dat) or press enter to cancel");
         System.out.println("If you want to specify a relative path (not starting with C:\\ or /), your save should be located in the same directory as the game");
         String[] parts = scanner.nextLine().split(" ");
@@ -95,7 +95,7 @@ public class SaveManager {
         return promptLoad(parts);
     }
 
-    private World promptLoad(String[] parts) throws IOException {
+    private World promptLoad(String[] parts) throws IOException{
         switch (parts[0]) {
             case "cancel":
             case "Cancel":
@@ -116,10 +116,8 @@ public class SaveManager {
                     }
                     String[] strArray = objects.toArray(new String[objects.size()]);
                     objects.clear();
-                    System.out.println(strArray[0]);
                     for(String objString: strArray){
                         String[] objStringArray = objString.split(",");
-                        System.out.println(objString);
                         switch(objStringArray[0]){
                             case "Armor":
                             objects.add(new Armor(objStringArray[1], objStringArray[2], Integer.parseInt(objStringArray[3])));
@@ -140,7 +138,7 @@ public class SaveManager {
                             /*case "Character":
                             Item[] characterItems = new Item[Integer.parseInt(objStringArray[3])];
                             for(int i = 5; i <= characterItems.length; i++){
-                                characterItems[i-4] = new Item(objStringArray[i-1], objStringArray[i]); 
+                            characterItems[i-4] = new Item(objStringArray[i-1], objStringArray[i]); 
                             }
                             objects.add(new Character(objStringArray[1], objStringArray[2], characterItems, Integer.parseInt(objStringArray[objStringArray.length + 4]), Integer.parseInt(objStringArray[characterItems.length + 5]), Integer.parseInt(objStringArray[characterItems.length + 6]), Boolean.parseBoolean(objStringArray[objStringArray.length + 7])));
                             break;*/
@@ -148,7 +146,7 @@ public class SaveManager {
                             /*case "Player":
                             Item[] playerItems = new Item[Integer.parseInt(objStringArray[2])];
                             for(int i = 3; i <= playerItems.length; i++){
-                                playerItems[i-3] = new Item(objStringArray[i-1], objStringArray[i]); 
+                            playerItems[i-3] = new Item(objStringArray[i-1], objStringArray[i]); 
                             }
                             objects.add(new Player(objStringArray[1], playerItems));
                             break;*/

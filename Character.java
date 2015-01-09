@@ -63,4 +63,23 @@ public class Character {
     public boolean getHostile() {
         return hostile;
     }
+<<<<<<< HEAD
 }
+=======
+
+    public void addItem(Item item) {
+        inventory.add(item);
+    }
+
+    public List<Item> getInventory() {
+        return inventory;
+
+        public String toString() {
+            String items = ",";
+            for(int i = 0; i < inventory.size(); i++) {
+                items += inventory.toArray()[i].toString() + ",";
+            }
+            return name + "," + description + "," + inventory.size() + items + "," + health + "," + attack + "," + defense + "," + hostile;
+        }
+    }
+>>>>>>> FETCH_HEAD

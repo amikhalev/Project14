@@ -22,12 +22,13 @@ public class SaveManager {
 
     private void promptSave(String[] parts) throws IOException {
         switch (parts[0]) {
-            case "cancel":
-            case "Cancel":
+        case "cancel":
             System.out.println("Save Canceled");
-            break;
-            default:
-            save = new File(parts[0]);
+        case "quit":
+        case "exit":
+            return 0;
+        default:
+            save = new File(String.join(" ", Arrays.asList(parts).subList(1, parts.length - 1)));
             FileWriter fileWrite = new FileWriter(save);
             PrintWriter printWrite = new PrintWriter(fileWrite);
             if(save.exists() && save.isFile()) {
@@ -59,11 +60,11 @@ public class SaveManager {
                                     objects = world.getObjects();
                                     Object[] objArray = objects.toArray();
                                     for(Object obj : objArray) {
-                                        if(obj instanceof Item[]){
-                                            for(Item item: (Item[])obj){
+                                        if(obj instanceof Item[]) {
+                                            for(Item item: (Item[])obj) {
                                                 printWrite.println("," + new String(DatatypeConverter.printBase64Binary(item.toString().getBytes())));
                                             }
-                                        }else{
+                                        } else {
                                             printWrite.println(new String(DatatypeConverter.printBase64Binary(obj.toString().getBytes())));
                                         }
                                     }
@@ -97,10 +98,10 @@ public class SaveManager {
 
     private World promptLoad(String[] parts) throws IOException{
         switch (parts[0]) {
-            case "cancel":
-            case "Cancel":
+        case "cancel":
+        case "Cancel":
             return null;
-            default:
+        default:
             save = new File(parts[0]);
             Scanner fScan = new Scanner(save);
             if(save.exists() && save.isFile()) {
@@ -111,30 +112,40 @@ public class SaveManager {
                     while(fScan.hasNext()) {
                         objects.add(new String(DatatypeConverter.parseBase64Binary(fScan.nextLine())));
                     }
-                    for(int i = objects.size()/2; i < objects.size() -1;){
+                    for(int i = objects.size()/2; i < objects.size() -1;) {
                         objects.remove(i);
                     }
                     String[] strArray = objects.toArray(new String[objects.size()]);
                     objects.clear();
+<<<<<<< HEAD
                     for(String objString: strArray){
                         String[] objStringArray = objString.split(",");
                         switch(objStringArray[0]){
                             case "Armor":
+=======
+                    System.out.println(strArray[0]);
+                    for(String objString: strArray) {
+                        String[] objStringArray = objString.split(",");
+                        System.out.println(objString);
+                        switch(objStringArray[0]) {
+                        case "Armor":
+>>>>>>> FETCH_HEAD
                             objects.add(new Armor(objStringArray[1], objStringArray[2], Integer.parseInt(objStringArray[3])));
                             break;
 
-                            case "Weapon":
+                        case "Weapon":
                             objects.add(new Weapon(objStringArray[1], objStringArray[2], Integer.parseInt(objStringArray[3])));
                             break;
 
-                            case "Equippable":
+                        case "Equippable":
                             objects.add(new Armor(objStringArray[1], objStringArray[2], Integer.parseInt(objStringArray[3])));
                             break;
 
-                            case "Usable":
+                        case "Usable":
                             objects.add(new Usable(objStringArray[1], objStringArray[2], Integer.parseInt(objStringArray[3]), Integer.parseInt(objStringArray[4]), Integer.parseInt(objStringArray[5])));
                             break;
 
+<<<<<<< HEAD
                             /*case "Character":
                             Item[] characterItems = new Item[Integer.parseInt(objStringArray[3])];
                             for(int i = 5; i <= characterItems.length; i++){
@@ -150,8 +161,25 @@ public class SaveManager {
                             }
                             objects.add(new Player(objStringArray[1], playerItems));
                             break;*/
+=======
+                        /*case "Character":
+                        Item[] characterItems = new Item[Integer.parseInt(objStringArray[3])];
+                        for(int i = 5; i <= characterItems.length; i++){
+                            characterItems[i-4] = new Item(objStringArray[i-1], objStringArray[i]);
+                        }
+                        objects.add(new Character(objStringArray[1], objStringArray[2], characterItems, Integer.parseInt(objStringArray[objStringArray.length + 4]), Integer.parseInt(objStringArray[characterItems.length + 5]), Integer.parseInt(objStringArray[characterItems.length + 6]), Boolean.parseBoolean(objStringArray[objStringArray.length + 7])));
+                        break;*/
 
-                            case "Item":
+                        /*case "Player":
+                        Item[] playerItems = new Item[Integer.parseInt(objStringArray[2])];
+                        for(int i = 3; i <= playerItems.length; i++){
+                            playerItems[i-3] = new Item(objStringArray[i-1], objStringArray[i]);
+                        }
+                        objects.add(new Player(objStringArray[1], playerItems));
+                        break;*/
+>>>>>>> FETCH_HEAD
+
+                        case "Item":
                             objects.add(new Item(objStringArray[1], objStringArray[2]));
                             break;
 

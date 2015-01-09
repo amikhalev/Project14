@@ -12,11 +12,10 @@ public class Player extends Character {
     private static final int attack = 10;
     private static final int defense = 10;
     protected List<Equippable> equipped;
-    protected List<Item> inventory;
-    protected int money, baseAttack, baseDefense;
+    protected int money;
 
-    public Player(String name, Item[] inventory) {
-        super(name, description, inventory, health, attack, defense, false);
+    public Player(String name) {
+        super(name, description, new Item[0], health, attack, defense, false);
         this.equipped = new ArrayList<Equippable>();
         this.money = 0;
     }
@@ -31,10 +30,13 @@ public class Player extends Character {
         return attack + itemAttack;
     }
 
+<<<<<<< HEAD
     public int getBaseAttack() {
         return attack;
     }
 
+=======
+>>>>>>> FETCH_HEAD
     public int getDefense() {
         int itemDefense = 0;
         for (Equippable item : equipped) {
@@ -52,15 +54,19 @@ public class Player extends Character {
     public String getDescription() {
         return description;
     }
+<<<<<<< HEAD
     
     public List<Item> getInventory(){
         return inventory;
     }
     
+=======
+
+>>>>>>> FETCH_HEAD
     public void equip(Equippable equipment) {
         equipped.add(equipment);
     }
-    
+
     public void attack(Character target) {
         int damage = (getAttack() - target.getDefense());
         if (damage > 0) {
@@ -70,4 +76,15 @@ public class Player extends Character {
             System.out.printf("The %s's armor is to strong!\n", target.getName());
         }
     }
+<<<<<<< HEAD
+=======
+
+    public String toString() {
+        String items = ",";
+        for(int i = 0; i < inventory.size(); i++) {
+            items += inventory.toArray()[i].toString() + ",";
+        }
+        return "Player" + "," + name + "," + inventory.size() + items;
+    }
+>>>>>>> FETCH_HEAD
 }

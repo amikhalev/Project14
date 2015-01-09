@@ -24,13 +24,12 @@ public class SaveManager {
     private int promptSave(String[] parts) throws IOException {
         switch (parts[0]) {
         case "cancel":
-        case "Cancel":
             return -1;
         case "quit":
         case "exit":
             return 0;
         default:
-            save = new File(parts[0]);
+            save = new File(String.join(" ", Arrays.asList(parts).subList(1, parts.length - 1)));
             FileWriter fileWrite = new FileWriter(save);
             PrintWriter printWrite = new PrintWriter(fileWrite);
             if(save.exists() && save.isFile()) {

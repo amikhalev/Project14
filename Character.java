@@ -63,4 +63,12 @@ public class Character {
     public boolean getHostile() {
         return hostile;
     }
+
+    public void addItem(Item item) {
+        inventory.add(item);
+    }
+
+    public List<Item> getInventory() {
+        return inventory;
+    }
 }

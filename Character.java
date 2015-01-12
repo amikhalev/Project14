@@ -74,6 +74,25 @@ public class Character {
         return inventory;
     }
 
+    public boolean attack(Character target) {
+        int damage = (getAttack() - target.getDefense());
+        String name = target.getName();
+        if (damage > 0) {
+            target.setHealth(target.getHealth() - damage);
+            System.out.printf("You attacked the %s for %d damage!\n", name, damage);
+            if (target.getHealth() <= 0) {
+                return true;
+            }
+        } else {
+            System.out.printf("The %s's armor is to strong!\n", name);
+        }
+        return false;
+    }
+    
+    public void die() {
+        System.out.printf("You kill the %s\n", getName());
+    }
+    
     public String toString() {
         String items = ",";
         for(int i = 0; i < inventory.size(); i++) {

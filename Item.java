@@ -26,11 +26,19 @@ public class Item {
         return "Item," + name + "," + description;
     }
 
-    public String use() {
-        return "This is an odd time and place to do that!";
+    public void use() {
+        System.out.println("This is an odd time and place to do that!");
     }
 
-    public String useOn(Item other) {
-        return "This is an odd time and place to do that!";
+    public void useOn(Item other) {
+        System.out.println( "This is an odd time and place to do that!");
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -58,21 +58,6 @@ public class Player extends Character {
         equipped.add(equipment);
     }
 
-    public boolean attack(Character target) {
-        int damage = (getAttack() - target.getDefense());
-        String name = target.getName();
-        if (damage > 0) {
-            target.setHealth(target.getHealth() - damage);
-            System.out.printf("You attacked the %s for %d damage!\n", name, damage);
-            if (target.getHealth() <= 0) {
-                System.out.printf("You kill the %s\n", name);
-                return true;
-            }
-        } else {
-            System.out.printf("The %s's armor is to strong!\n", name);
-        }
-        return false;
-    }
     /*
     public String toString() {
     String items = ",";

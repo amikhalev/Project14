@@ -65,31 +65,100 @@ public class Main {
 
         Room vault = new Room("Vault", "A large ancient vault. There is a large vault door that you are pretty sure you can't open.");
         Room storeRoom = new Room("Storeroom", "A musty old storeroom. It smells like old grandpa feet in here, so you want to get out pretty quickly.");
-        Room risingRoom = new Room("Rising Room", "A mystic force pushes you upward towards a 3 foot square grate. There is a small exit to the South");
+        Room risingRoom = new Room("Rising Room", "A mystic force tries to push you upward towards a 3 foot square grate. There is a small exit to the South") {
+            @Override
+            public Room goUp() {
+                if (findItemIn(player.getInventory(), "Coal") != null) {
+                    out.println("You are to heavy to do this");
+                    return null;
+                } else {
+                    return up;
+                }
+            }
+        };
         Room windingTunnel = new Room("Winding Tunnel", "A tunnel that twists and turns. You can't see very well in here, so good luck finding how to get out!");
         Room crystalCavern = new Room("Crystal Cavern", "A cavern with giant glowing crystals protruding from the wall. There are exits to the east and west.");
-        Room crystalHall = new Room("Crystal Hall", "A large hall with the walls carved from some crystal. There are exits to the East and West");
-        Room throneRoom = new Room("Throne Room", "A great room with a slightly undersized crystal throne. There is an exit to the West");
+        Room crystalHall = new Room("Crystal Hall", "A large hall with the walls carved from some crystal. There are exits to the North and West");
+        Room throneRoom = new Room("Throne Room", "A great room with a slightly undersized crystal throne. There is an exit to the South");
 
         Item moss = new Item("Moss", "A clump of glowing moss");
         backpack = new Item("Backpack", "A simple sturdy leather backpack");
-        Item coal = new Item("Coal", "A large quantity of coal");
+        Item coal = new Item("Coal", "A large quantity of coal. It is really damn heavy!");
         Item staff = new Item("Staff", "An old wooden staff with a cavity at the top");
         Item spellBook = new Item("Spellbook", "An ancient tome with letters that seem to shift across the page." +
                 " Some you can translate:\n" +
                 "\tTransmutation:\n" +
-                "\tUsing a ... it is possible to ...\n" +
-                "\t for example chocolate (agherm)...\n\n" +
+                "\tUsing a ... it is possible to ... into...\n" +
+                "\t for example chocolate (by saying agherm)...\n\n" +
                 " The rest of the book is stained, burned, and unreadable");
         Armor robe = new Armor("Robe", "A set of dark robes with symbols along the hem. +3 Defense", 3);
         Armor hat = new Armor("Hat", "A pointy hat that makes your ears buzz when you put it on. +1 Defense", 1);
         Weapon hammer = new Weapon("Hammer", "A mighty hammer of smashing things. +8 Attack", 8);
         Weapon rock = new Weapon("Rock", "A small rock that is sorta heavy. You think that it would be fun to throw. +1 Attack.", 1);
-        Item flint = new Item("Flint", "A small black piece of flint");
+        Item lantern = new Item("Unlit Lantern", "A small lantern with plenty of fuel, but it isn't lit") {
+            @Override
+            public void use() {
+                if (name.equals("Lit Lantern")) {
+                    out.println("You can now see inside of the room you are in!");
+                } else {
+                    out.println("You are sure that this would work better if the lantern was lit");
+                }
+            }
+        };
+        Item flint = new Item("Flint", "A small black piece of flint") {
+            @Override
+            public void use() {
+                out.println("You make a spark with the flint. You are sure that you could light something using this...");
+            }
+
+            @Override
+            public void useOn(Item other) {
+                if (other == lantern) {
+                    lantern.setName("Lit Lantern");
+                    lantern.setDescription("A lantern that is quite bright and has plenty of fuel");
+                    out.println("You light the lantern using the flint. Hooray!");
+                } else {
+                    out.printf("You try to light the %s on fire, but it doesn't work too well.\n", other.getName());
+                }
+            }
+        };
         Item crystal = new Item("Shard", "A glowing shard of crystal");
-        Item lantern = new Item("Unlit Lantern", "A small lantern with plenty of fuel, but it isn't lit");
-        Item pickaxe = new Item("Rusty Pickaxe", "An old rusty worn pickaxe");
-        Item warpRing = new Item("Warp Ring", "A ring that you think can make you travel in time");
+        Item pickaxe = new Item("Rusty Pickaxe", "An old rusty worn pickaxe") {
+            @Override
+            public void use() {
+                out.println("You swing the pickaxe in the air");
+            }
+
+            @Override
+            public void useOn(Item other) {
+                if (other == crystal) {
+                    other.setName("Crystal Shards");
+                    other.setDescription("Shards of magical glowing crystal. You can feel the strong magic emanating from it.");
+                    out.println("You smash the crystal into crystal shards!");
+                } else {
+                    out.printf("The pickaxe doesn't have much affect on the %s\n", other.getName());
+                }
+            }
+        };
+        Item warpRing = new Item("Warp Ring", "A ring that you think can make you travel in time") {
+            @Override
+            public void use() {
+                if (findItemIn(player.getInventory(), "Chocolate Slab") == null) {
+                    out.println("You start going through time, and everything gets all distorted and wobbelly." +
+                            " You end up back in the same room. Maybe now isn't the place or time to do this?");
+                } else {
+                    currentRoom = new Room("Final Room", "This is the final room. You have one more thing to do before you win...");
+                    out.println("You go through time. It is pretty cool when you do that, because it is all trippey and stuff." +
+                            " You would talk about it but there is no time, because you end up in the same room but in a different time!");
+                    examineRoom(currentRoom);
+                }
+            }
+
+            @Override
+            public void useOn(Item other) {
+                out.println("You can't use this item on something.");
+            }
+        };
 
         Character grate = new Character("Grate", "A metal grate in the floor, about three feet square, just big enough for you to fit through. There are tiny points of light rising up from the grate.", new Item[0], 0, 0, 0, false);
 
@@ -98,10 +167,11 @@ public class Main {
             @Override
             public Room goDown() {
                 if (getCharacters().contains(grate)) {
-                    System.out.println("You need to get rid of that grate first!");
+                    out.println("You need to get rid of that grate first!");
                 } else if (!player.getInventory().contains(coal)) {
-                    System.out.println("You try to go down, but a mystical force pulls you up and back into the great room!");
+                    out.println("You try to go down, but a mystical force pulls you up and back into the great room!");
                 } else {
+                    out.println("Luckily, the coal weighs you down past the magical force!");
                     return down;
                 }
                 return null;
@@ -125,10 +195,9 @@ public class Main {
         crystalCavern.setWest(windingTunnel);
         crystalCavern.setEast(crystalHall);
         crystalHall.setWest(crystalCavern);
-        crystalHall.setEast(throneRoom);
-        //Flint and Crystal Shard added in game logic (when player inspects the room, flint gets added; when they break the crystals in the room, they get the crystal shard)
+        crystalHall.setNorth(throneRoom);
+        throneRoom.setSouth(crystalHall);
 
-        throneRoom.setWest(crystalHall);
         if (player == null) {
             wizardsWardrobe.addItem(hat);
             wizardsWardrobe.addItem(robe);
@@ -139,10 +208,11 @@ public class Main {
             vault.addItem(warpRing);
             vault.addItem(rock);
             storeRoom.addItem(moss);
-            crystalHall.addItem(hammer);
-            crystalHall.addItem(pickaxe);
+            throneRoom.addItem(hammer);
+            throneRoom.addItem(pickaxe);
             crystalCavern.addItem(lantern);
             crystalCavern.addItem(flint);
+            crystalCavern.addItem(crystal);
         } else {
             List<Item> inventory = player.getInventory();
             if (!inventory.contains(hat)) wizardsWardrobe.addItem(hat);
@@ -154,8 +224,9 @@ public class Main {
             if (!inventory.contains(rock)) vault.addItem(rock);
             if (!inventory.contains(backpack)) storeRoom.addItem(backpack);
             if (!inventory.contains(moss)) storeRoom.addItem(moss);
-            if (!inventory.contains(pickaxe)) crystalHall.addItem(pickaxe);
-            if (!inventory.contains(hammer)) crystalHall.addItem(hammer);
+            if (!inventory.contains(pickaxe)) throneRoom.addItem(pickaxe);
+            if (!inventory.contains(hammer)) throneRoom.addItem(hammer);
+            if (!inventory.contains(lantern)) crystalCavern.addItem(lantern);
             if (!inventory.contains(flint)) crystalCavern.addItem(flint);
             if (!inventory.contains(crystal)) crystalCavern.addItem(crystal);
         }
@@ -236,7 +307,13 @@ public class Main {
                     for (Character character : characters) {
                         if (character.getName().equalsIgnoreCase(rest)) {
                             if (player.attack(character)) {
+                                character.die();
                                 characters.remove(character);
+                                out.println("It drops:");
+                                for (Item item : character.getInventory()) {
+                                    out.printf(" * %s\n", item.getName());
+                                    currentRoom.addItem(item);
+                                }
                             }
                             return;
                         }
@@ -251,7 +328,44 @@ public class Main {
                 out.printf("Defense: %d\n", player.getDefense());
                 break;
             case "say":
-                out.printf("You say '%s' and listen to it echo, falling on nobody's ears but you\n", rest);
+                if (rest.equals("agherm")) {
+                    List<Item> inventory = player.getInventory();
+                    if (currentRoom.getName().equals("Vault")
+                            && findItemIn(inventory, "Hat") != null
+                            && findItemIn(inventory, "Robe") != null
+                            && findItemIn(inventory, "Staff") != null
+                            && findItemIn(inventory, "Crystal Shards") != null) {
+                        Item chocolateSlab = new Item("Chocolate Slab", "A large slab of pure chocolate!") {
+                            @Override
+                            public void use() {
+                                if (currentRoom.getName().equals("Final Room")) {
+                                    out.println("You sink your teeth into the delicious chocolate." +
+                                            "You spread it through your mouth, attempting to describe the flavor...");
+                                    try {
+                                        Thread.sleep(5000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace(); // fml
+                                    }
+                                    out.printf("\n\n\n\n\nYou realize that this chocolate sucks. Well, that was a waste of time. That's life for you, ain't it?" +
+                                            " Bye, and go do something better with your time, %s.\n", player.getName());
+                                    running = false;
+                                } else {
+                                    out.println("It seems a bit early to do this. Why don't you explore a bit more.");
+                                }
+                            }
+                        };
+                        currentRoom.addCharacter(new Character("Chocolate Door", "A vault door made of pure chocolate!",
+                                new Item[]{chocolateSlab}, 20, 0, 8, false) {
+
+                        });
+                        out.println("Awesome! The spell worked! The vault door turns into pure chocolate!");
+                    } else {
+                        out.println("You feel as though the words that you spoke have significance, but there is something missing." +
+                                " They do not mean anything special in this context.");
+                    }
+                } else {
+                    out.printf("You say '%s' and listen to it echo, falling on nobody's ears but you\n", rest);
+                }
                 break;
             case "inventory":
             case "items":
@@ -433,6 +547,8 @@ public class Main {
             case "d":
                 navigate(currentRoom.goDown());
                 break;
+            default:
+                out.printf("%s isn't a direction", direction);
         }
     }
 
@@ -444,7 +560,13 @@ public class Main {
     }
 
     private void examineRoom(Room room) {
-        out.printf("-- %s --\n", room.getName());
+        String name = room.getName();
+        out.printf("-- %s --\n", name);
+        boolean hasLantern = findItemIn(player.getInventory(), "Lit Lantern") != null;
+        if (!hasLantern && (name.equals("Throne Room") || name.equals("Crystal Hall"))) {
+            out.println("You can't see anything! It's too damn dark!");
+            return;
+        }
         out.println(room.getDescription());
         for (Item item : room.getItems()) {
             out.printf("There is a(n) %s in the room\n", item.getName());
@@ -455,6 +577,12 @@ public class Main {
     }
 
     private void examineThing(String name) {
+        for (Item item : player.getInventory()) {
+            if (item.getName().toLowerCase().equals(name)) {
+                out.printf("%s - %s\n", item.getName(), item.getDescription());
+                return;
+            }
+        }
         for (Item item : currentRoom.getItems()) {
             if (item.getName().toLowerCase().equals(name)) {
                 out.printf("%s - %s\n", item.getName(), item.getDescription());
@@ -482,22 +610,22 @@ public class Main {
         out.println("│║   Robes,   ║  ║ Old Staff, ║                ││                                                              │");
         out.println("│║    Hat     ║  ║ Spellbook  ║                ││                                                              │");
         out.println("│╚════════════╝  ╚════╗  ╔════╝                ││                                                              │");
-        out.println("│                ╔════╝  ╚════╗  ╔════════════╗││╔════════════╗                                                │");
-        out.println("│                ║ Grate Room ║  ║   Vault    ║││║Rising Room ║                                                │");
-        out.println("│                ║  (Start)   ║  ║            ║││║            ║                                                │");
-        out.println("│                ║    ╔══╗    ╚══╝            ║││║    ╔══╗    ║                                                │");
-        out.println("│                ║    ║\\/║    ╔══╗            ║││║    ║/\\║    ║                                                │");
-        out.println("│                ║    ╚══╝    ║  ║  Warp Ring ║││║    ╚══╝    ║                                                │");
-        out.println("│                ║            ║  ║    Rock    ║││║            ║                                                │");
-        out.println("│                ╚════╗  ╔════╝  ╚════════════╝││╚════╗  ╔════╝                                                │");
-        out.println("│                ╔════╝  ╚════╗                ││╔════╝  ╚════╗  ╔════════════╗  ╔════════════╗  ╔════════════╗│");
-        out.println("│                ║ Storeroom  ║                ││║   Winding  ║  ║  Crystal   ║  ║  Crystal   ║  ║Throne Room ║│");
-        out.println("│                ║            ║                ││║   Tunnel   ║  ║  Cavern    ║  ║    Hall    ║  ║            ║│");
-        out.println("│                ║            ║                ││║            ╚══╝            ╚══╝            ╚══╝            ║│");
-        out.println("│                ║    Coal,   ║                ││║            ╔══╗   Flint,   ╔══╗            ╔══╗            ║│");
-        out.println("│                ║ Glow Moss, ║                ││║            ║  ║  Crystal,  ║  ║  Pickaxe   ║  ║   Lizard   ║│");
-        out.println("│                ║  Backpack  ║                ││║            ║  ║  Lantern   ║  ║ War Hammer ║  ║   Warrior  ║│");
-        out.println("│                ╚════════════╝                ││╚════════════╝  ╚════════════╝  ╚════════════╝  ╚════════════╝│");
+        out.println("│                ╔════╝  ╚════╗  ╔════════════╗││╔════════════╗                  ╔════════════╗                │");
+        out.println("│                ║ Grate Room ║  ║   Vault    ║││║Rising Room ║                  ║Throne Room ║                │");
+        out.println("│                ║  (Start)   ║  ║            ║││║            ║                  ║            ║                │");
+        out.println("│                ║    ╔══╗    ╚══╝            ║││║    ╔══╗    ║                  ║            ║                │");
+        out.println("│                ║    ║\\/║    ╔══╗            ║││║    ║/\\║    ║                  ║            ║                │");
+        out.println("│                ║    ╚══╝    ║  ║  Warp Ring ║││║    ╚══╝    ║                  ║   Pickaxe  ║                │");
+        out.println("│                ║            ║  ║    Rock    ║││║            ║                  ║ War Hammer ║                │");
+        out.println("│                ╚════╗  ╔════╝  ╚════════════╝││╚════╗  ╔════╝                  ╚════╗  ╔════╝                │");
+        out.println("│                ╔════╝  ╚════╗                ││╔════╝  ╚════╗  ╔════════════╗  ╔════╝  ╚════╗                │");
+        out.println("│                ║ Storeroom  ║                ││║   Winding  ║  ║  Crystal   ║  ║  Crystal   ║                │");
+        out.println("│                ║            ║                ││║   Tunnel   ║  ║  Cavern    ║  ║    Hall    ║                │");
+        out.println("│                ║            ║                ││║            ╚══╝            ╚══╝            ║                │");
+        out.println("│                ║    Coal,   ║                ││║            ╔══╗   Flint,   ╔══╗            ║                │");
+        out.println("│                ║ Glow Moss, ║                ││║            ║  ║  Crystal,  ║  ║            ║                │");
+        out.println("│                ║  Backpack  ║                ││║            ║  ║  Lantern   ║  ║            ║                │");
+        out.println("│                ╚════════════╝                ││╚════════════╝  ╚════════════╝  ╚════════════╝                │");
         out.println("╰──────────────────────────────────────────────╯╰──────────────────────────────────────────────────────────────╯");
     }
 }

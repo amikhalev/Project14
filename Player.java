@@ -15,13 +15,20 @@ public class Player extends Character {
     private static final int defense = 10;
     protected List<Equippable> equipped;
     protected int money;
-
+    /**
+     * Player constructor
+     * @param name Player's name
+     */
     public Player(String name) {
         super(name, description, new Item[0], health, attack, defense, false);
         this.equipped = new ArrayList<>();
         this.money = 0;
     }
-
+    
+    /**
+     * Get the player's attack strength
+     * @return the player's attack strength
+     */
     public int getAttack() {
         int itemAttack = 0;
         for (Equippable item : equipped) {
@@ -32,6 +39,10 @@ public class Player extends Character {
         return attack + itemAttack;
     }
 
+    /**
+     * Get the player's defense
+     * @return the player's defense
+     */
     public int getDefense() {
         int itemDefense = 0;
         for (Equippable item : equipped) {
@@ -42,18 +53,34 @@ public class Player extends Character {
         return defense + itemDefense;
     }
 
+    /**
+     * Get the name of the player
+     * @return name of the player
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Get the description of the player
+     * @return description of the player
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Get player's inventory
+     * @return player's inventory
+     */
     public List<Item> getInventory() {
         return inventory;
     }
 
+    /**
+     * Equip an Item
+     * @param equipment Item to equip
+     */
     public void equip(Equippable equipment) {
         equipped.add(equipment);
     }

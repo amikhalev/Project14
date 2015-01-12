@@ -9,6 +9,10 @@ public class World {
         this.objects = new ArrayList<Object>(Arrays.asList(objects));
     }
 
+    /**
+     * Get all the objects in the World
+     * @return the objects in the World
+     */
     public List<Object> getObjects() {
         return objects;
     }

@@ -132,21 +132,20 @@ public class Room {
     public Room goDown() {
         return down;
     }
-<<<<<<< HEAD
-=======
-
+    /*
     public String toString() {
-        String roomItems = ",";
-        String characters = ",";
-        for(int i = 0; i < items.size(); i++) {
-            roomItems += items.toArray()[i].toString() + ",";
-        }
-
-        /*for(int i = 0; i < characters.size(); i++){
-            roomCharacters += characters.toArray()[i].toString() + ",";
-        }
-        return items.size() + itemCharacters + characters.size() + roomCharacters + north.toString() + south.toString() + east.toString() + west.toString() + up.toString + down.toString();
-        */return null;
+    String roomItems = ",";
+    String characters = ",";
+    for(int i = 0; i < items.size(); i++) {
+    roomItems += items.toArray()[i].toString() + ",";
     }
->>>>>>> FETCH_HEAD
+
+    //for(int i = 0; i < characters.size(); i++){
+    //roomCharacters += characters.toArray()[i].toString() + ",";
+    //}
+    //return items.size() + itemCharacters + characters.size() + roomCharacters + north.toString() + south.toString() + east.toString() + west.toString() + up.toString + down.toString();
+    //return null;
+    }
+    */
+
 }

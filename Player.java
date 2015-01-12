@@ -30,13 +30,10 @@ public class Player extends Character {
         return attack + itemAttack;
     }
 
-<<<<<<< HEAD
     public int getBaseAttack() {
         return attack;
     }
 
-=======
->>>>>>> FETCH_HEAD
     public int getDefense() {
         int itemDefense = 0;
         for (Equippable item : equipped) {
@@ -54,15 +51,11 @@ public class Player extends Character {
     public String getDescription() {
         return description;
     }
-<<<<<<< HEAD
-    
+
     public List<Item> getInventory(){
         return inventory;
     }
-    
-=======
 
->>>>>>> FETCH_HEAD
     public void equip(Equippable equipment) {
         equipped.add(equipment);
     }
@@ -76,15 +69,13 @@ public class Player extends Character {
             System.out.printf("The %s's armor is to strong!\n", target.getName());
         }
     }
-<<<<<<< HEAD
-=======
-
+    /*
     public String toString() {
-        String items = ",";
-        for(int i = 0; i < inventory.size(); i++) {
-            items += inventory.toArray()[i].toString() + ",";
-        }
-        return "Player" + "," + name + "," + inventory.size() + items;
+    String items = ",";
+    for(int i = 0; i < inventory.size(); i++) {
+    items += inventory.toArray()[i].toString() + ",";
     }
->>>>>>> FETCH_HEAD
+    return "Player" + "," + name + "," + inventory.size() + items;
+    }
+     */
 }

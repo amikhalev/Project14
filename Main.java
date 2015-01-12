@@ -1,13 +1,8 @@
-<<<<<<< HEAD
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
 import java.util.Arrays;
-=======
-import java.util.*;
-import java.io.*;
->>>>>>> FETCH_HEAD
 /**
  * Project 14 The Zorkening!
  * Main Class
@@ -119,7 +114,6 @@ public class Main {
     public void reset() {
         score = 0;
         running = false;
-        player = new Player("TODO: read name from player");
         makeRooms();
     }
 
@@ -138,6 +132,10 @@ public class Main {
     public void start() {
         out.println("Project 14");
         out.println("Made by Alex Mikhalev and Tavi Kohn");
+        out.println("\nPlease enter your name:");
+        String line = scanner.nextLine();
+        player = new Player(line);
+
         running = true;
         examineRoom(currentRoom);
         while (running) prompt();
@@ -156,60 +154,53 @@ public class Main {
             out.println("What did you say?");
             return;
         }
-        String rest = String.join(" ", Arrays.asList(parts).subList(1, parts.length));
         switch (parts[0]) {
-        case "quit":
-        case "exit":
+            case "quit":
+            case "exit":
             out.println("Bye!");
             running = false;
             break;
-            <<<<<<< HEAD
-        case "cheat":
-            switch (rest) {
-            case "i am the all seeing schreiber!":
+            case "cheat":
+            String cheatCode = " " + Arrays.asList(parts).subList(1, parts.length);
+            switch (cheatCode) {
+                case "i am the all seeing schreiber!":
                 printMap();
                 break;
-            default:
-                out.printf("\"%s\" isn't a cheat code, scrub!\n", rest);
+                default:
+                out.printf("\"%s\" isn't a cheat code, scrub!\n", cheatCode);
             }
             break;
-        case "inventory":
-        case "items":
-            showInventory();
-            break;
-        case "walk":
-        case "go":
+            case "go":
             if (parts.length != 2)
                 out.println("I don't understand that");
             else
                 navigate(parts[1]);
             break;
-        case "attack":
+            case "attack":
             break;
-        case "say":
-            out.printf("You say '%s' and listen to it echo, falling on nobody's ears but you\n", rest);
+            case "say":
             break;
-        case "look":
-        case "examine":
+            case "examine":
             if (parts.length == 1) {
                 examineRoom(currentRoom);
-            } else if (parts.length >= 2) {
-                examineThing(currentRoom, rest);
-            }
-            break;
-        case "grab":
-        case "take":
-            if (parts.length >= 2) {
-                takeItem(currentRoom, rest);
+            } else if (parts.length == 2) {
+                String itemName = parts[1];
+                examineThing(currentRoom, itemName);
             } else {
-                out.println("What do you want to take?");
+                out.println("I can't examine more than one thing!");
             }
             break;
-<<<<<<< HEAD
+            case "take":
+            break;
+            case "use":
+            break;
             case "load":
             try{
                 itemList = save.loadSave().getObjects();
-                player = new Player(player.getName(), (Item[])itemList.toArray());
+                player = new Player(player.getName());
+                for(Item item : (Item[])itemList.toArray()){
+                    player.addItem(item);
+                }
             }catch (java.io.IOException e){
                 out.println("Load Failed!");
             }
@@ -220,61 +211,33 @@ public class Main {
             }catch (java.io.IOException e){
                 out.println("Save Failed!");
             }
-=======
-        case "save":
-            System.out.println("Save Game currently no implemented");
->>>>>>> FETCH_HEAD
             break;
-        default:
+            default:
             out.printf("I dont understand %s!\n", command);
             break;
         }
     }
 
-    private void showInventory() {
-        out.println("Player Inventory:");
-        List<Item> inventory = player.getInventory();
-        if (inventory.size() == 0)
-            out.println("dust");
-        for (Item item : inventory) {
-            out.printf(" * %s - %s\n", item.getName(), item.getDescription());
-        }
-    }
-
-    private void takeItem(Room room, String name) {
-        for (Item item : room.getItems()) {
-            if (item.getName().toLowerCase().matches(".*" + name + ".*")) {
-                room.getItems().remove(item);
-                player.addItem(item);
-                out.printf("You shove the %s in your bag\n", item.getName());
-                return;
-            }
-        }
-        out.printf("There isn't a(n) %s in the area!\n", name);
-    }
-
     private void navigate(String direction) {
         switch (direction) {
-        case "north":
+            case "north":
             navigate(currentRoom.getNorth());
             break;
-        case "east":
+            case "east":
             navigate(currentRoom.getEast());
             break;
-        case "south":
+            case "south":
             navigate(currentRoom.getSouth());
             break;
-        case "west":
+            case "west":
             navigate(currentRoom.getWest());
             break;
-        case "up":
+            case "up":
             navigate(currentRoom.getUp());
             break;
-        case "down":
+            case "down":
             navigate(currentRoom.getDown());
             break;
-        default:
-            out.printf("As you try to go %s, you travel to the fourth dimension, but you come back quickly\n", direction);
         }
     }
 
@@ -282,7 +245,7 @@ public class Main {
         if (room == null) {
             out.println("You run your head into a wall and now have a slight headache");
             return;
-        } else {
+        }else{
             currentRoom = room;
             examineRoom(currentRoom);
         }
@@ -301,13 +264,13 @@ public class Main {
 
     private void examineThing(Room room, String name) {
         for (Item item : room.getItems()) {
-            if (item.getName().toLowerCase().matches(name)) {
+            if (item.getName().toLowerCase().equals(name)) {
                 out.printf("%s - %s\n", item.getName(), item.getDescription());
                 return;
             }
         }
         for (Character character : room.getCharacters()) {
-            if (character.getName().toLowerCase().matches(name)) {
+            if (character.getName().toLowerCase().equals(name)) {
                 out.printf("%s - %s\n", character.getName(), character.getDescription());
                 return;
             }

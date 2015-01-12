@@ -10,15 +10,15 @@ import java.util.List;
  */
 public class Player extends Character {
     private static final String description = "A lonely traveller…";
-    private static final int health = 10;
-    private static final int attack = 10;
+    private static final int health = 20;
+    private static final int attack = 0;
     private static final int defense = 10;
     protected List<Equippable> equipped;
     protected int money;
 
     public Player(String name) {
         super(name, description, new Item[0], health, attack, defense, false);
-        this.equipped = new ArrayList<Equippable>();
+        this.equipped = new ArrayList<>();
         this.money = 0;
     }
 
@@ -30,10 +30,6 @@ public class Player extends Character {
             }
         }
         return attack + itemAttack;
-    }
-
-    public int getBaseAttack() {
-        return attack;
     }
 
     public int getDefense() {
@@ -62,14 +58,20 @@ public class Player extends Character {
         equipped.add(equipment);
     }
 
-    public void attack(Character target) {
+    public boolean attack(Character target) {
         int damage = (getAttack() - target.getDefense());
+        String name = target.getName();
         if (damage > 0) {
             target.setHealth(target.getHealth() - damage);
-            System.out.printf("You attacked the %s for %d damage!\n", target.getName(), damage);
+            System.out.printf("You attacked the %s for %d damage!\n", name, damage);
+            if (target.getHealth() <= 0) {
+                System.out.printf("You kill the %s\n", name);
+                return true;
+            }
         } else {
-            System.out.printf("The %s's armor is to strong!\n", target.getName());
+            System.out.printf("The %s's armor is to strong!\n", name);
         }
+        return false;
     }
     /*
     public String toString() {

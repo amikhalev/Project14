@@ -21,8 +21,8 @@ public class Room {
     protected Room down;
 
     public Room(String name, String description) {
-        this.items = new ArrayList<Item>();
-        this.characters = new ArrayList<Character>();
+        this.items = new ArrayList<>();
+        this.characters = new ArrayList<>();
         this.name = name;
         this.description = description;
     }
@@ -110,27 +110,38 @@ public class Room {
         this.down = down;
     }
 
+    protected void goCheck(Room room) {
+        if (room == null)
+            System.out.println("You hit your head on the wall and get a headache :(");
+    }
+
     public Room goNorth() {
+        goCheck(north);
         return north;
     }
 
     public Room goSouth() {
+        goCheck(south);
         return south;
     }
 
     public Room goEast() {
+        goCheck(east);
         return east;
     }
 
     public Room goWest() {
+        goCheck(west);
         return west;
     }
 
     public Room goUp() {
+        goCheck(up);
         return up;
     }
 
     public Room goDown() {
+        goCheck(down);
         return down;
     }
     /*

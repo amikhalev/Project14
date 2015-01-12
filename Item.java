@@ -25,4 +25,12 @@ public class Item {
     public String toString() {
         return "Item," + name + "," + description;
     }
+
+    public String use() {
+        return "This is an odd time and place to do that!";
+    }
+
+    public String useOn(Item other) {
+        return "This is an odd time and place to do that!";
+    }
 }

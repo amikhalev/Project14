@@ -43,6 +43,8 @@ This game takes many commands. Here they are:
 Nothing is case sensitive
 
 ## Walkthrough (!!! SPOILERS !!!)
+
+```
 Project 14
 Made by Alex Mikhalev and Tavi Kohn
 
@@ -213,3 +215,4 @@ You sink your teeth into the delicious chocolate.You spread it through your mout
 
 
 You realize that this chocolate sucks. Well, that was a waste of time. That's life for you, ain't it? Bye, and go do something better with your time, Screiber.
+```

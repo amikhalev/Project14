@@ -1,6 +1,6 @@
 /**
  * Project 14 The Zorkening!
- * Equippable Item Class
+ * Equippable Item Class. An item which can be equipped.
  *
  * @author Alex Mikhalev & Tavi Kohn
  * @version 1.0

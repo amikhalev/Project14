@@ -21,25 +21,48 @@ public class Main {
     private Room currentRoom;
     private Item backpack;
 
-    public Main() {
+    /**
+     * Creates a new instance of Main
+     */
+    private Main() {
         scanner = new Scanner(System.in);
         out = System.out;
         reset();
     }
 
+    /**
+     * Gets the single instance of Main
+     *
+     * @return The instance
+     */
     public static Main getInstance() {
         if (instance == null) instance = new Main();
         return instance;
     }
 
+    /**
+     * Adds the score to the score amount
+     *
+     * @param score
+     */
     public static void addScore(int score) {
         getInstance().incrementScore(score);
     }
 
+    /**
+     * Processes a command
+     *
+     * @param command The string of the command
+     */
     public static void readCommand(String command) {
         getInstance().process(command);
     }
 
+    /**
+     * The entry point of the program
+     *
+     * @param args The useless arguments
+     */
     public static void main(String[] args) {
         getInstance().start();
     }
@@ -95,7 +118,7 @@ public class Main {
         Armor hat = new Armor("Hat", "A pointy hat that makes your ears buzz when you put it on. +1 Defense", 1);
         Weapon hammer = new Weapon("Hammer", "A mighty hammer of smashing things. +8 Attack", 8);
         Weapon rock = new Weapon("Rock", "A small rock that is sorta heavy. You think that it would be fun to throw. +1 Attack.", 1);
-        Item lantern = new Item("Unlit Lantern", "A small lantern with plenty of fuel, but it isn't lit") {
+        Item lantern = new Usable("Unlit Lantern", "A small lantern with plenty of fuel, but it isn't lit") {
             @Override
             public void use() {
                 if (name.equals("Lit Lantern")) {
@@ -105,7 +128,7 @@ public class Main {
                 }
             }
         };
-        Item flint = new Item("Flint", "A small black piece of flint") {
+        Item flint = new Usable("Flint", "A small black piece of flint") {
             @Override
             public void use() {
                 out.println("You make a spark with the flint. You are sure that you could light something using this...");
@@ -123,7 +146,7 @@ public class Main {
             }
         };
         Item crystal = new Item("Shard", "A glowing shard of crystal");
-        Item pickaxe = new Item("Rusty Pickaxe", "An old rusty worn pickaxe") {
+        Item pickaxe = new Usable("Rusty Pickaxe", "An old rusty worn pickaxe") {
             @Override
             public void use() {
                 out.println("You swing the pickaxe in the air");
@@ -140,7 +163,7 @@ public class Main {
                 }
             }
         };
-        Item warpRing = new Item("Warp Ring", "A ring that you think can make you travel in time") {
+        Item warpRing = new Usable("Warp Ring", "A ring that you think can make you travel in time") {
             @Override
             public void use() {
                 if (findItemIn(player.getInventory(), "Chocolate Slab") == null) {
@@ -234,6 +257,9 @@ public class Main {
         currentRoom = grateRoom;
     }
 
+    /**
+     * Resets the game
+     */
     public void reset() {
         out.println("Project 14");
         out.println("Made by Alex Mikhalev and Tavi Kohn");
@@ -245,32 +271,50 @@ public class Main {
         player = new Player(line);
     }
 
+    /**
+     * Gets the score of the player
+     *
+     * @return The score
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * Sets the score of the player
+     *
+     * @param score The score
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
+    /**
+     * Adds to the score
+     *
+     * @param score How much to add
+     */
     public void incrementScore(int score) {
         this.score += score;
     }
 
+    /**
+     * Starts the game loop
+     */
     public void start() {
         running = true;
         examineRoom(currentRoom);
         while (running) prompt();
     }
 
-    public void prompt() {
+    private void prompt() {
         out.print(" > ");
         String line = scanner.nextLine();
         line = line.toLowerCase().trim();
         process(line);
     }
 
-    public void process(String command) {
+    private void process(String command) {
         String[] parts = command.split(" ");
         if (parts.length < 1) {
             out.println("What did you say?");
@@ -335,7 +379,7 @@ public class Main {
                             && findItemIn(inventory, "Robe") != null
                             && findItemIn(inventory, "Staff") != null
                             && findItemIn(inventory, "Crystal Shards") != null) {
-                        Item chocolateSlab = new Item("Chocolate Slab", "A large slab of pure chocolate!") {
+                        Item chocolateSlab = new Usable("Chocolate Slab", "A large slab of pure chocolate!") {
                             @Override
                             public void use() {
                                 if (currentRoom.getName().equals("Final Room")) {
@@ -444,12 +488,14 @@ public class Main {
         Item item = findItemIn(player.getInventory(), name);
         if (item == null) {
             out.printf("You don't have a %s to use\n", name);
+        } else if (!(item instanceof Usable)) {
+            out.printf("A %s isn't useful\n", item.getName());
         } else {
             Item onItem = findItemIn(player.getInventory(), onName);
             if (onItem == null) {
                 out.printf("You don't have a %s to use a %s on\n", onName, item.getName());
             } else {
-                item.useOn(onItem);
+                ((Usable) item).useOn(onItem);
             }
         }
     }
@@ -458,8 +504,10 @@ public class Main {
         Item item = findItemIn(player.getInventory(), name);
         if (item == null) {
             out.printf("You don't have a %s to use\n", name);
+        } else if (!(item instanceof Usable)) {
+            out.printf("A %s isn't useful\n", item.getName());
         } else {
-            item.use();
+            ((Usable) item).use();
         }
     }
 

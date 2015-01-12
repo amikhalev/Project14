@@ -1,35 +1,33 @@
 /**
  * Project 14 The Zorkening!
- * Usable Item Class
+ * Usable Item Class. Any item which can be used with a
  *
  * @author Alex Mikhalev & Tavi Kohn
  * @version 1.0
  */
 public class Usable extends Item {
-    protected int healthChange;
-    protected int attackChange;
-    protected int defenseChange;
-
-    public Usable(String name, String description, int healthChange, int attackChange, int defenseChange) {
+    /**
+     * Creates a new item with a name and description
+     *
+     * @param name        The name of the item
+     * @param description The description of the item
+     */
+    public Usable(String name, String description) {
         super(name, description);
-        this.healthChange = healthChange;
-        this.attackChange = attackChange;
-        this.defenseChange = defenseChange;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getName() {
-        return name;
-    }
-
+    /**
+     * Uses the item. This should be overridden by any useful items
+     */
     public void use() {
-
+        System.out.println("This is an odd time and place to do that!");
     }
 
-    public void use(Character target) {
-
+    /**
+     * Uses an item on another item.
+     * @param other The other item.
+     */
+    public void useOn(Item other) {
+        System.out.println("This is an odd time and place to do that!");
     }
 }

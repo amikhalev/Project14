@@ -135,7 +135,7 @@ public class SaveManager {
                                     break;
 
                                 case "Usable":
-                                    objects.add(new Usable(objStringArray[1], objStringArray[2], Integer.parseInt(objStringArray[3]), Integer.parseInt(objStringArray[4]), Integer.parseInt(objStringArray[5])));
+                                    objects.add(new Usable(objStringArray[1], objStringArray[2]));
                                     break;
                             /*case "Character":
                             Item[] characterItems = new Item[Integer.parseInt(objStringArray[3])];

@@ -198,8 +198,8 @@ public class Main {
             try{
                 itemList = save.loadSave().getObjects();
                 player = new Player(player.getName());
-                for(Item item : (Item[])itemList.toArray()){
-                    player.addItem(item);
+                for(Object item : itemList.toArray()){
+                    player.addItem((Item)item);
                 }
             }catch (java.io.IOException e){
                 out.println("Load Failed!");
@@ -221,21 +221,27 @@ public class Main {
     private void navigate(String direction) {
         switch (direction) {
             case "north":
+            case "n":
             navigate(currentRoom.getNorth());
             break;
             case "east":
+            case "e":
             navigate(currentRoom.getEast());
             break;
             case "south":
+            case "s":
             navigate(currentRoom.getSouth());
             break;
             case "west":
+            case "w":
             navigate(currentRoom.getWest());
             break;
             case "up":
+            case "u":
             navigate(currentRoom.getUp());
             break;
             case "down":
+            case "d":
             navigate(currentRoom.getDown());
             break;
         }

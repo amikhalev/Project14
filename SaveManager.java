@@ -26,7 +26,8 @@ public class SaveManager {
             System.out.println("Save Canceled");
             break;
             default:
-            save = new File(" " + Arrays.asList(parts).subList(1, parts.length - 1));
+            //save = new File(" " + Arrays.asList(parts).subList(1, parts.length - 1));
+            save = new File(parts[0]);
             FileWriter fileWrite = new FileWriter(save);
             PrintWriter printWrite = new PrintWriter(fileWrite);
             if(save.exists() && save.isFile()) {

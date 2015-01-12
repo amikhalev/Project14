@@ -1,6 +1,7 @@
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -47,12 +48,11 @@ public class Main {
         Room wizardsWardrobe = new Room("Wizard's Wardrobe", "A small wardrobe with a door to the West");
         Room wizardsGrotto = new Room("Wizard's Spellchamber", "A small room, with a skylight above. There is a door to the East");
         Room grateRoom = new Room("Grate Room", "A rectangular room with old-looking stone walls. There is a small puddle of water on the floor, and exits to the north, east, and south.");
-        grateRoom.addCharacter(new Character("Grate", "A metal grate in the floor, about three feet square, just big enough for you to fit through. There are tiny points of light rising up from the grate.", new Item[0], 0, 0, 0, false));
         Room vault = new Room("Vault", "A large ancient vault");
         Room storeRoom = new Room("Storeroom", "A musty old storeroom");
         Room risingRoom = new Room("Rising Room", "A mystic force pushes you upward towards a 3 foot square grate. There is a small exit to the South");
         Room windingTunnel = new Room("Winding Tunnel", "A tunnel that twists and turns");
-        Room crystalCavern = new Room("Crystal Cavern", "A cavern with giant glowing crystals protruding from the wall");
+        Room crystalCavern = new Room("Crystal Cavern", "A cavern with giant glowing crystals protruding from the wall. There are exits to the east and west.");
         Room crystalHall = new Room("Crystal Hall", "A large hall with the walls carved from some crystal. There are exits to the East and West");
         Room throneRoom = new Room("Throne Room", "A great room with a slightly undersized crystal throne. There is an exit to the West");
 
@@ -68,6 +68,7 @@ public class Main {
         Item crystal = new Item("Shard", "A glowing shard of crystal");
         Item lantern = new Item("Lantern", "A small lantern with plenty of fuel");
         Item pickaxe = new Item("Rusty Pickaxe", "An old rusty worn pickaxe");
+        Item warpRing = new Item("Warp Ring", "A ring that you think can make you travel in time");
 
         wizardsWardrobe.setEast(wizardsGrotto);
         wizardsWardrobe.addItem(hat);
@@ -82,8 +83,10 @@ public class Main {
         grateRoom.setEast(vault);
         grateRoom.setSouth(storeRoom);
         grateRoom.setDown(risingRoom);
+        grateRoom.addCharacter(new Character("Grate", "A metal grate in the floor, about three feet square, just big enough for you to fit through. There are tiny points of light rising up from the grate.", new Item[0], 0, 0, 0, false));
 
         vault.setWest(grateRoom);
+        vault.addItem(warpRing);
 
         storeRoom.setNorth(grateRoom);
         storeRoom.addItem(coal);
@@ -154,6 +157,7 @@ public class Main {
             out.println("What did you say?");
             return;
         }
+        String rest = String.join(" ", Arrays.asList(parts).subList(1, parts.length));
         switch (parts[0]) {
             case "quit":
             case "exit":
@@ -179,25 +183,73 @@ public class Main {
             case "attack":
                 break;
             case "say":
+                out.printf("You say '%s' and listen to it echo, falling on nobody's ears but you\n", rest);
                 break;
+            case "inventory":
+            case "items":
+                showInventory();
+                break;
+            case "look":
             case "examine":
                 if (parts.length == 1) {
                     examineRoom(currentRoom);
-                } else if (parts.length == 2) {
-                    String itemName = parts[1];
-                    examineThing(currentRoom, itemName);
-                } else {
-                    out.println("I can't examine more than one thing!");
+                } else if (parts.length >= 2) {
+                    examineThing(currentRoom, rest);
                 }
                 break;
+            case "grab":
             case "take":
+                if (parts.length >= 2) {
+                    takeItem(currentRoom, rest);
+                } else {
+                    out.println("What do you want to take?");
+                }
                 break;
-            case "use":
+            case "drop":
+                if (parts.length >= 2) {
+                    dropItem(currentRoom, rest);
+                } else {
+                    out.println("What do you want to drop?");
+                }
                 break;
             default:
                 out.printf("I don't understand %s!\n", command);
                 break;
         }
+    }
+
+    private void dropItem(Room room, String name) {
+        for (Item item : player.getInventory()) {
+            if (item.getName().equalsIgnoreCase(name)) {
+                room.addItem(item);
+                player.getInventory().remove(item);
+                out.printf("For some odd reason, you drop the %s on the ground\n", item.getName());
+                return;
+            }
+        }
+        out.printf("You don't have a %s to drop\n", name);
+    }
+
+    private void showInventory() {
+        out.println("Player Inventory:");
+        List<Item> inventory = player.getInventory();
+        if (inventory.size() == 0)
+            out.println("dust");
+        for (Item item : inventory) {
+            out.printf(" * %s - %s\n", item.getName(), item.getDescription());
+        }
+    }
+
+    private void takeItem(Room room, String name) {
+        for (Item item : room.getItems()) {
+            if (item.getName().toLowerCase().matches(".*" + name + ".*")) {
+                room.getItems().remove(item);
+                player.addItem(item);
+                out.printf("You shove the %s in your bag\n", item.getName());
+                return;
+            }
+        }
+        out.printf("There isn't a(n) %s in the area!\n", name);
     }
 
     private void navigate(String direction) {
@@ -229,6 +281,10 @@ public class Main {
         } else {
             currentRoom = room;
             examineRoom(currentRoom);
+            if (Objects.equals(currentRoom.getName(), "Rising Room") && !player.getInventory().stream().anyMatch((i) -> i.getName().equals("Coal"))) {
+                currentRoom = currentRoom.getUp();
+                examineRoom(currentRoom);
+            }
         }
     }
 

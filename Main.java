@@ -1,11 +1,12 @@
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Random;
-import java.util.Arrays;
+
 /**
  * Project 14 The Zorkening!
  * Main Class
+ *
  * @author Alex Mikhalev & Tavi Kohn
  * @version 1.0
  */
@@ -16,7 +17,6 @@ public class Main {
     private PrintStream out;
     private boolean running;
     private SaveManager save = new SaveManager();
-    private List<Object> itemList;
     private Player player;
     private Room currentRoom;
 
@@ -27,7 +27,7 @@ public class Main {
     }
 
     public static Main getInstance() {
-        if (instance == null)  instance = new Main();
+        if (instance == null) instance = new Main();
         return instance;
     }
 
@@ -46,7 +46,7 @@ public class Main {
     private void makeRooms() {
         Room wizardsWardrobe = new Room("Wizard's Wardrobe", "A small wardrobe with a door to the West");
         Room wizardsGrotto = new Room("Wizard's Spellchamber", "A small room, with a skylight above. There is a door to the East");
-        Room grateRoom = new Room("Grate Room", "A rectangular room with old-looking stone walls. There is a small puddle of water on the floor, and exits to the north, east, and west.");
+        Room grateRoom = new Room("Grate Room", "A rectangular room with old-looking stone walls. There is a small puddle of water on the floor, and exits to the north, east, and south.");
         grateRoom.addCharacter(new Character("Grate", "A metal grate in the floor, about three feet square, just big enough for you to fit through. There are tiny points of light rising up from the grate.", new Item[0], 0, 0, 0, false));
         Room vault = new Room("Vault", "A large ancient vault");
         Room storeRoom = new Room("Storeroom", "A musty old storeroom");
@@ -157,95 +157,76 @@ public class Main {
         switch (parts[0]) {
             case "quit":
             case "exit":
-            out.println("Bye!");
-            running = false;
-            break;
-            case "cheat":
-            String cheatCode = " " + Arrays.asList(parts).subList(1, parts.length);
-            switch (cheatCode) {
-                case "i am the all seeing schreiber!":
-                printMap();
+                out.println("Bye!");
+                running = false;
                 break;
-                default:
-                out.printf("\"%s\" isn't a cheat code, scrub!\n", cheatCode);
-            }
-            break;
-            case "go":
-            if (parts.length != 2)
-                out.println("I don't understand that");
-            else
-                navigate(parts[1]);
-            break;
-            case "attack":
-            break;
-            case "say":
-            break;
-            case "examine":
-            if (parts.length == 1) {
-                examineRoom(currentRoom);
-            } else if (parts.length == 2) {
-                String itemName = parts[1];
-                examineThing(currentRoom, itemName);
-            } else {
-                out.println("I can't examine more than one thing!");
-            }
-            break;
-            case "take":
-            break;
-            case "use":
-            break;
-            case "load":
-            try{
-                itemList = save.loadSave().getObjects();
-                player = new Player(player.getName());
-                for(Item item : (Item[])itemList.toArray()){
-                    player.addItem(item);
+            case "cheat":
+                String cheatCode = " " + Arrays.asList(parts).subList(1, parts.length);
+                switch (cheatCode) {
+                    case "i am the all seeing schreiber!":
+                        printMap();
+                        break;
+                    default:
+                        out.printf("\"%s\" isn't a cheat code, scrub!\n", cheatCode);
                 }
-            }catch (java.io.IOException e){
-                out.println("Load Failed!");
-            }
-            break;
-            case "save":
-            try{
-                save.saveGame(new World(player.getInventory().toArray()));
-            }catch (java.io.IOException e){
-                out.println("Save Failed!");
-            }
-            break;
+                break;
+            case "go":
+                if (parts.length != 2)
+                    out.println("I don't understand that");
+                else
+                    navigate(parts[1]);
+                break;
+            case "attack":
+                break;
+            case "say":
+                break;
+            case "examine":
+                if (parts.length == 1) {
+                    examineRoom(currentRoom);
+                } else if (parts.length == 2) {
+                    String itemName = parts[1];
+                    examineThing(currentRoom, itemName);
+                } else {
+                    out.println("I can't examine more than one thing!");
+                }
+                break;
+            case "take":
+                break;
+            case "use":
+                break;
             default:
-            out.printf("I dont understand %s!\n", command);
-            break;
+                out.printf("I don't understand %s!\n", command);
+                break;
         }
     }
 
     private void navigate(String direction) {
         switch (direction) {
             case "north":
-            navigate(currentRoom.getNorth());
-            break;
+                navigate(currentRoom.getNorth());
+                break;
             case "east":
-            navigate(currentRoom.getEast());
-            break;
+                navigate(currentRoom.getEast());
+                break;
             case "south":
-            navigate(currentRoom.getSouth());
-            break;
+                navigate(currentRoom.getSouth());
+                break;
             case "west":
-            navigate(currentRoom.getWest());
-            break;
+                navigate(currentRoom.getWest());
+                break;
             case "up":
-            navigate(currentRoom.getUp());
-            break;
+                navigate(currentRoom.getUp());
+                break;
             case "down":
-            navigate(currentRoom.getDown());
-            break;
+                navigate(currentRoom.getDown());
+                break;
         }
     }
 
     private void navigate(Room room) {
         if (room == null) {
             out.println("You run your head into a wall and now have a slight headache");
-            return;
-        }else{
+        } else {
             currentRoom = room;
             examineRoom(currentRoom);
         }

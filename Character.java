@@ -1,9 +1,11 @@
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
 /**
  * Project 14 The Zorkening!
  * Weapon Class
+ *
  * @author Alex Mikhalev & Tavi Kohn
  * @version 1.0
  */
@@ -32,36 +34,36 @@ public class Character {
         return description;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    public void setDefense(int defense) {
-        this.defense = defense;
-    }
-
-    public void setHostile(boolean hostile) {
-        this.hostile = hostile;
-    }
-
     public int getHealth() {
         return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public int getAttack() {
         return attack;
     }
 
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
     public int getDefense() {
         return defense;
     }
 
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
     public boolean getHostile() {
         return hostile;
+    }
+
+    public void setHostile(boolean hostile) {
+        this.hostile = hostile;
     }
 
     public void addItem(Item item) {

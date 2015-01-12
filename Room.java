@@ -1,9 +1,10 @@
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
+
 /**
  * Project 14 The Zorkening!
  * Room Class
+ *
  * @author Alex Mikhalev & Tavi Kohn
  * @version 1.0
  */
@@ -61,52 +62,52 @@ public class Room {
         return characters;
     }
 
-    public void setNorth(Room north) {
-        this.north = north;
-    }
-
-    public void setSouth(Room south) {
-        this.south = south;
-    }
-
-    public void setEast(Room east) {
-        this.east = east;
-    }
-
-    public void setWest(Room west) {
-        this.west = west;
-    }
-
-    public void setUp(Room up) {
-        this.up = up;
-    }
-
-    public void setDown(Room down) {
-        this.down = down;
-    }
-
     public Room getNorth() {
         return north;
+    }
+
+    public void setNorth(Room north) {
+        this.north = north;
     }
 
     public Room getSouth() {
         return south;
     }
 
+    public void setSouth(Room south) {
+        this.south = south;
+    }
+
     public Room getEast() {
         return east;
+    }
+
+    public void setEast(Room east) {
+        this.east = east;
     }
 
     public Room getWest() {
         return west;
     }
 
+    public void setWest(Room west) {
+        this.west = west;
+    }
+
     public Room getUp() {
         return up;
     }
 
+    public void setUp(Room up) {
+        this.up = up;
+    }
+
     public Room getDown() {
         return down;
+    }
+
+    public void setDown(Room down) {
+        this.down = down;
     }
 
     public Room goNorth() {

@@ -1,9 +1,9 @@
 {
-        "*.java": {
-                "type": "source",
-                "make": "javac *.java"
-        },
-        "*": {
-                "dispatch": "java Main"
-        }
+  "*.java": {
+    "type": "source",
+    "make": "javac *.java"
+  },
+  "*": {
+    "dispatch": "java Main"
+  }
 }

@@ -1,8 +1,10 @@
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Project 14 The Zorkening!
  * Player Class
+ *
  * @author Alex Mikhalev & Tavi Kohn
  * @version 1.0
  */
@@ -52,7 +54,7 @@ public class Player extends Character {
         return description;
     }
 
-    public List<Item> getInventory(){
+    public List<Item> getInventory() {
         return inventory;
     }
 

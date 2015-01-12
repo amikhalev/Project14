@@ -1,6 +1,7 @@
 /**
  * Project 14 The Zorkening!
  * Equippable Item Class
+ *
  * @author Alex Mikhalev & Tavi Kohn
  * @version 1.0
  */

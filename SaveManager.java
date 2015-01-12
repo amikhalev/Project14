@@ -4,7 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,7 +31,8 @@ public class SaveManager {
                 System.out.println("Save Canceled");
                 break;
             default:
-                save = new File(" " + Arrays.asList(parts).subList(1, parts.length - 1));
+                //save = new File(" " + Arrays.asList(parts).subList(1, parts.length - 1));
+                save = new File(parts[0]);
                 FileWriter fileWrite = new FileWriter(save);
                 PrintWriter printWrite = new PrintWriter(fileWrite);
                 if (save.exists() && save.isFile()) {
@@ -66,15 +66,13 @@ public class SaveManager {
                                         for (Object obj : objArray) {
                                             if (obj instanceof Item[]) {
                                                 for (Item item : (Item[]) obj) {
-                                                    printWrite.println("," + new String(DatatypeConverter.printBase64Binary(item.toString().getBytes())));
+                                                    printWrite.println("," + DatatypeConverter.printBase64Binary(item.toString().getBytes()));
                                                 }
-                                            } else {
-                                                printWrite.println(new String(DatatypeConverter.printBase64Binary(obj.toString().getBytes())));
                                             }
+                                            printWrite.close();
+                                            fileWrite.close();
+                                            System.out.println("Done!");
                                         }
-                                        printWrite.close();
-                                        fileWrite.close();
-                                        System.out.println("Done!");
                                     } else {
                                         System.out.println("File does not have read/write access! Please specify a different file or change file permissions and try again");
                                         promptSave(parts);

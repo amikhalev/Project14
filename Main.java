@@ -71,14 +71,8 @@ public class Main {
         Item warpRing = new Item("Warp Ring", "A ring that you think can make you travel in time");
 
         wizardsWardrobe.setEast(wizardsGrotto);
-        wizardsWardrobe.addItem(hat);
-        wizardsWardrobe.addItem(robe);
-
         wizardsGrotto.setWest(wizardsWardrobe);
         wizardsGrotto.setSouth(grateRoom);
-        wizardsGrotto.addItem(spellBook);
-        wizardsGrotto.addItem(staff);
-
         grateRoom.setNorth(wizardsGrotto);
         grateRoom.setEast(vault);
         grateRoom.setSouth(storeRoom);
@@ -89,29 +83,49 @@ public class Main {
         vault.addItem(warpRing);
 
         storeRoom.setNorth(grateRoom);
-        storeRoom.addItem(coal);
-        storeRoom.addItem(backpack);
-        storeRoom.addItem(moss);
-
         risingRoom.setUp(grateRoom);
         risingRoom.setSouth(windingTunnel);
-
         windingTunnel.setNorth(risingRoom);
         windingTunnel.setEast(crystalCavern);
-
         crystalCavern.setWest(windingTunnel);
         crystalCavern.setEast(crystalHall);
-
         crystalHall.setWest(crystalCavern);
         crystalHall.setEast(throneRoom);
-        crystalHall.addItem(lantern);
         //Flint and Crystal Shard added in game logic (when player inspects the room, flint gets added; when they break the crystals in the room, they get the crystal shard)
 
         throneRoom.setWest(crystalHall);
-        throneRoom.addItem(hammer);
-        throneRoom.addItem(pickaxe);
-
-        currentRoom = grateRoom;
+        if (player == null) {
+            wizardsWardrobe.addItem(hat);
+            wizardsWardrobe.addItem(robe);
+            wizardsGrotto.addItem(spellBook);
+            wizardsGrotto.addItem(staff);
+            storeRoom.addItem(coal);
+            storeRoom.addItem(backpack);
+            storeRoom.addItem(moss);
+            throneRoom.addItem(hammer);
+            throneRoom.addItem(pickaxe);
+            crystalHall.addItem(lantern);
+        } else if (!player.getInventory().contains(hat)) {
+            wizardsWardrobe.addItem(hat);
+        } else if (!player.getInventory().contains(robe)) {
+            wizardsWardrobe.addItem(robe);
+        } else if (!player.getInventory().contains(spellBook)) {
+            wizardsGrotto.addItem(spellBook);
+        } else if (!player.getInventory().contains(staff)) {
+            wizardsGrotto.addItem(staff);
+        } else if (!player.getInventory().contains(coal)) {
+            storeRoom.addItem(coal);
+        } else if (!player.getInventory().contains(backpack)) {
+            storeRoom.addItem(backpack);
+        } else if (!player.getInventory().contains(moss)) {
+            storeRoom.addItem(moss);
+        } else if (!player.getInventory().contains(hat)) {
+            throneRoom.addItem(hat);
+        } else if (!player.getInventory().contains(hat)) {
+            throneRoom.addItem(hat);
+        } else if (!player.getInventory().contains(hat)) {
+            crystalHall.addItem(hat);
+        }
     }
 
     public void reset() {
@@ -212,6 +226,19 @@ public class Main {
                     out.println("What do you want to drop?");
                 }
                 break;
+            case "use":
+            case "load":
+                try {
+                    List<Object> itemList = save.loadSave().getObjects();
+                    player = new Player(player.getName());
+                    for (Object item : itemList.toArray()) {
+                        player.addItem((Item) item);
+                    }
+                    running = true;
+                    examineRoom(currentRoom);
+                } catch (java.io.IOException e) {
+                    out.println("Load Failed!");
+                }
             default:
                 out.printf("I don't understand %s!\n", command);
                 break;
@@ -226,8 +253,8 @@ public class Main {
                 out.printf("For some odd reason, you drop the %s on the ground\n", item.getName());
                 return;
             }
+            out.printf("You don't have a %s to drop\n", name);
         }
-        out.printf("You don't have a %s to drop\n", name);
     }
 
     private void showInventory() {
@@ -255,21 +282,27 @@ public class Main {
     private void navigate(String direction) {
         switch (direction) {
             case "north":
+            case "n":
                 navigate(currentRoom.getNorth());
                 break;
             case "east":
+            case "e":
                 navigate(currentRoom.getEast());
                 break;
             case "south":
+            case "s":
                 navigate(currentRoom.getSouth());
                 break;
             case "west":
+            case "w":
                 navigate(currentRoom.getWest());
                 break;
             case "up":
+            case "u":
                 navigate(currentRoom.getUp());
                 break;
             case "down":
+            case "d":
                 navigate(currentRoom.getDown());
                 break;
         }
